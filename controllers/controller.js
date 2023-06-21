@@ -139,13 +139,13 @@ exports.addDefaultFollowers = async (req, res, next) => {
         await User.findOneAndUpdate({username: "shad"}, {
             followers: shadFollowers + 1,
             $push: {
-                followersList: req.body.username
+                followersList: req.body.username.toLowerCase()
             }
         }, {new: true})
         await User.findOneAndUpdate({username: "thechatterbox"}, {
             followers: tcbFollowers + 1,
             $push: {
-                followersList: req.body.username
+                followersList: req.body.username.toLowerCase()
             }
         }, {new: true})
         next()
