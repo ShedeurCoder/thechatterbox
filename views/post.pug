@@ -66,15 +66,12 @@ block content
         .comments
             if pinnedComment
                 if pinnedEqualsHComment
-                    -var highlight = 1
-                    +comment(pinnedComment, post, highlight, open, 'asdf')
+                    -var isHighlight = 1
+                    +comment(pinnedComment, post, isHighlight, open, 'asdf')
                 else 
                     +comment(pinnedComment, post, {}, {}, 'asdf')
-            if highlight && !pinnedEqualsHComment
-                -var index = 0
-            else  
-                -var index = -1
-            each comment in comments 
+            -var index = highlight && !pinnedEqualsHComment ? (0) : (-1)
+            each comment in comments
                 if index == 0
                     -var highlight = 1
                     +comment(comment, post, highlight, open)
