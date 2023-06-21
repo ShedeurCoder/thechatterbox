@@ -1,23 +1,40 @@
 # The Chatterbox Source code
 Official source code for The Chatterbox <br>
-Current version: v1.2.1
+Current version: v1.3
 <br><br>
 ![tcblogo-nobg](https://user-images.githubusercontent.com/81215635/235458527-9e6e1d52-8bc2-48e0-ab21-5e6f24cbfd9f.png)
 
 <h1>Change log</h1>
 
-<h2>v1.2.1 (current version)</h2>
+<h2>v1.3 (current version)</h2>
 
 <b>Changes</b>
 <ul>
-<li>Made a "read" system for notifications</li>
+<li>@-ing someone will link to them and will notify them</li>
+<li>Pinned posts to profile</li>
+<li>Pinned comments to posts</li>
+<li>Comic sans font toggle</li>
 </ul>
 
 <details>
+<summary><h2>v1.3 (current major version)</h2></summary>
+<h3>v1.3 (current version)</h3>
 
-<summary><h2>v1.2 (current major version)</h2></summary>
+<b>Changes</b>
+<ul>
+<li>@-ing someone will link to them and will notify them</li>
+<li>Pinned posts to profile</li>
+<li>Pinned comments to posts</li>
+<li>Comic sans font toggle</li>
+</ul>
+
+</details>
+
+<details>
+
+<summary><h2>v1.2</h2></summary>
   
-<h3>v1.2.1 (current version)</h3>
+<h3>v1.2.1</h3>
 <b>Changes</b>
 <ul>
 <li>Made a "read" system for notifications</li>
