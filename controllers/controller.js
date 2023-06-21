@@ -990,7 +990,7 @@ exports.deleteUser = async (req, res, next) => {
         if (following.length > 0) {
             following.forEach(async (c) => {
                 await User.findOneAndUpdate({username: c.username}, {
-                    $pull: {followersList: username}
+                    $pull: {followersList: req.user.username}
                 }, {new: true})
             })
         }
