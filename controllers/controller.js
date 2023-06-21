@@ -646,8 +646,11 @@ exports.postPage = async (req, res, next) => {
         }
 
         let pinnedEqualsHComment = false
-        if (pinnedComment._id.equals(hComment._id))
-            pinnedEqualsHComment = true
+        if (pinnedComment && hComment) {
+            if (pinnedComment._id.equals(hComment._id)) {
+                pinnedEqualsHComment = true
+            }
+        }
 
         if (req.query.r == 'open') {
             var open = 1
