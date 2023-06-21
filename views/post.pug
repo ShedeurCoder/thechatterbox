@@ -65,8 +65,12 @@ block content
                 button.btn.btn-primary(type="submit") Comment 
         .comments
             if pinnedComment
-                +comment(pinnedComment, post, {}, {}, 'asdf')
-            if highlight 
+                if pinnedEqualsHComment
+                    -var highlight = 1
+                    +comment(pinnedComment, post, highlight, open, 'asdf')
+                else 
+                    +comment(pinnedComment, post, {}, {}, 'asdf')
+            if highlight && !pinnedEqualsHComment
                 -var index = 0
             else  
                 -var index = -1

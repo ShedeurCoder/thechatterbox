@@ -645,6 +645,11 @@ exports.postPage = async (req, res, next) => {
             }
         }
 
+        let pinnedEqualsHComment = false
+        if (pinnedComment._id.equals(hComment._id)) {
+            pinnedEqualsHComment = true
+        }
+
         if (req.query.r == 'open') {
             var open = 1
         } else {
@@ -658,7 +663,7 @@ exports.postPage = async (req, res, next) => {
         } else {
             nextPage = false;
         }
-        res.render('post', {title: `Post by ${req.params.username}`, post, comments, currentPage, nextPage, highlight, open, pinnedComment});
+        res.render('post', {title: `Post by ${req.params.username}`, post, comments, currentPage, nextPage, highlight, open, pinnedComment, pinnedEqualsHComment});
     } catch(error) {
         next(error);
     }
