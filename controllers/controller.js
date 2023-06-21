@@ -196,7 +196,7 @@ exports.profilePage = async (req, res, next) => {
         const unposts = Post.find({user: username}).sort({date: -1}).limit(postPageLimit);
         const page = 1;
         const unnextPost = Post.findOne({user: username}).sort({date: -1}).skip(postPageLimit);
-        const pinnedPost = profileOwner.pinned ? (await Post.findById(profileOwner.pinned)) : (console.log('e'))
+        const pinnedPost = profileOwner ? (await Post.findById(profileOwner.pinned)) : (console.log('e'))
         const [posts, nextPost] = await Promise.all([unposts, unnextPost]);
         let nextPage;
         if (nextPost != null) {
@@ -568,7 +568,7 @@ exports.profilePageNumber = async (req, res, next) => {
         const unposts = Post.find({user: username}).sort({date: -1}).skip(skipAmount).limit(postPageLimit);
         const unnextPost = Post.findOne({user: username}).sort({date: -1}).skip(skipAmount + postPageLimit);
         const [posts, nextPost] = await Promise.all([unposts, unnextPost]);
-        const pinnedPost = profileOwner.pinned ? (await Post.findById(profileOwner.pinned)) : (console.log())
+        const pinnedPost = profileOwner ? (await Post.findById(profileOwner.pinned)) : (console.log())
         let nextPage;
         if (nextPost != null) {
             nextPage = true;

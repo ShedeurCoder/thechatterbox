@@ -1,7 +1,7 @@
 extends layout 
 include mixins/_post
 block content
-    if profileOwner != undefined
+    if profileOwner
         .profile-header
             img(src=`https://res.cloudinary.com/dmftho0cx/image/upload/${profileOwner.profile_picture}`)
             if profileOwner.displayName == ""
