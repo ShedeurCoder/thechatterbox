@@ -1,0 +1,18 @@
+extends layout 
+block content 
+    h1.text-center Verification requests 
+    each ticket in tickets 
+        .verify-wrapper 
+            a(href=`/user/${ticket.username}` target="blank") 
+                h2=`Request by ${ticket.username}`
+            .float-right
+                form(action="", method="POST" onsubmit="return confirm('Are you sure you want to VERIFY this person?')") 
+                    input(type="hidden", name="accept" value='yes')
+                    input(type="hidden", name="username" value=ticket.username)
+                    input(type="hidden", name="ticketId" value=ticket._id)
+                    button.fas.fa-check.text-success(type="submit") 
+                form(action="" method='POST' onsubmit="return confirm(`Are you sure you want to REJECT this person's verification?`)") 
+                    input(type="hidden", name="accept" value=false)
+                    input(type="hidden", name="username" value=ticket.username)
+                    input(type="hidden", name="ticketId" value=ticket._id)
+                    button.fas.fa-times.text-danger(type='submit')

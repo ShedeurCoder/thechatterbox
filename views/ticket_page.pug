@@ -1,0 +1,30 @@
+extends layout 
+block content 
+    .ticket-body 
+        h3=`Ticket by ${ticket.username}`
+            -let readableDate = new Date(ticket.date).toString();
+            -let a = readableDate.split(" ")
+            -let b = a.splice(0, 5)
+            -let styleDate = b.join(" ")
+            span.float-right=styleDate
+        h4=`${ticket.email}`
+        p=ticket.message
+        span=`Open: ${ticket.open}`
+        if ticket.open
+            form(action='', method="post" onsubmit="return confirm('Do you want to hide close ticket? It is unchangeable!')") 
+                button.btn.btn-danger.float-right(type="submit") Close ticket
+    if ticket.open
+        form(action=`/help/tickets/${ticket._id}/comment` method="POST")
+            input(type="hidden", name="username" value=user.username)
+            input(type="hidden" name="mainTicket" value=ticket._id)
+            input(type="text" name="message" placeholder="Your comment" required)
+            button.btn.btn-primary(type="submit") Submit 
+    each comment in comments 
+        .ticket-comment-wrapper.p-3.m-3(style="background-color: rgb(48, 48, 48);")
+            h3=`Response by ${comment.username}`
+                -let readableDate = new Date(comment.date).toString();
+                -let a = readableDate.split(" ")
+                -let b = a.splice(0, 5)
+                -let styleDate = b.join(" ")
+                span.float-right=styleDate
+            p=comment.message 

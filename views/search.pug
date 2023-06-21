@@ -1,0 +1,52 @@
+extends layout 
+include mixins/_post
+block content 
+    h1 Search for content
+    form(action="/search/results" method="GET" autocomplete="off")
+        .input-group.py-3
+            if searchTerm != undefined
+                input.form-control(type="text", name="searchTerm" value=searchTerm placeholder="Search" required)
+            else 
+                input.form-control(type="text", name="searchTerm" placeholder="Search" required)
+            if sizeNumber != undefined 
+                input.form-control(type="number" name="sizeNumber" value=sizeNumber placeholder="Size number" max=100 min=1 required)
+            else 
+                input.form-control(type="number" name="sizeNumber" placeholder="Sample number" value=20 max=100 min=1 required)
+            if searchType == undefined || searchType == "people"
+                select.form-select(name="searchType" onchange="this.form.submit()")
+                    option(value="people" selected) People 
+                    option(value="posts") Posts
+            else if searchType == "posts"
+                select.form-select(name="searchType" onchange="this.form.submit()")
+                    option(value="people") People 
+                    option(value="posts" selected) Posts
+        .form-group
+            button.btn.btn-primary(type="submit") Submit
+    if url.startsWith('/search/results')
+        if results.length == 0
+            h2.text-center No results found ¯\_(ツ)_/¯
+        if searchType == "people"
+            each result in results 
+                .user-result-wrapper
+                    a(href=`/user/${result.username}`)
+                        img(src=`https://res.cloudinary.com/dmftho0cx/image/upload/${result.profile_picture}`)
+                        if result.displayName == ""
+                            h1=result.first_name 
+                        else 
+                            h1=result.displayName 
+                        h2=result.username 
+                            if result.isVerified 
+                                span &nbsp;
+                                i.fas.fa-check-circle
+                        if result.isOwner
+                            h3 Owner
+                        else if result.isAdmin 
+                            h3 Admin
+                        if result.followersList.length == 1
+                            span.followers=`${result.followersList.length} Follower`
+                        else 
+                            span.followers=`${result.followersList.length} Followers`
+        else              
+            each result in results 
+                .post-wrapper-wrapper
+                    +post(result)

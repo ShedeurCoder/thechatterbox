@@ -1,0 +1,11 @@
+extends layout 
+block content 
+    h1 Verify/unverify user 
+    form(action="" method="POST") 
+        .input-group.py-3
+            input.form-control(type="text", name="username" placeholder="Username" required pattern='[A-Za-z0-9_]{1,}')
+            select.form-select(name="verifyType")
+                option(value="verify" selected) Verify
+                option(value="unverify") Unverify
+        .form-group
+        button.btn.btn-primary(type="submit" onsubmit="return confirm(`Are you sure you want to verify/unverify this person?`)") Submit

@@ -1,0 +1,23 @@
+extends layout 
+block content 
+    h1.text-center Open a ticket 
+    form(action="" method="POST")
+        .form-group 
+            label(for="username") Username 
+            input#username.form-control(type="text" name="username" value=user.username required)
+        .form-group 
+            label(for="full_name") Full name 
+            input#full_name.form-control(type="text", name="full_name" value=`${user.first_name} ${user.surname}` required)
+        .form-group 
+            label(for="email") Email 
+            input#email.form-control(type="email", name="email" value=user.email required) 
+        .form-group 
+            label(for="message") Message 
+            textarea#message.form-control(name="message" rows="4" placeholder="Your message" required)
+        input(type="hidden", name="ticket_type" value="ticket")
+        button.btn.btn-primary(type="submit") Submit
+    h4.text-center 
+        a(href="mailto:officialthechatterbox@gmail.com" target="_blank") Or send an Email
+    .text-left 
+        h2 Tickets 
+        p Tickets are private email-like direct conversations with an Admin of The Chatterbox. The only ones who can see the tickets are you and Admins. Tickets are generally responded within 5 business days.

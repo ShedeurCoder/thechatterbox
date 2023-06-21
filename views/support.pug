@@ -1,0 +1,23 @@
+extends layout 
+block content
+    .support-header
+        h1 The Chatterbox Support
+        .float-right 
+            img.help-pfp(src=`https://res.cloudinary.com/dmftho0cx/image/upload/${user.profile_picture}`)
+            span=` Signed in as ${user.username}`
+    .support-links.text-center
+        unless user.isAdmin
+            unless user.isVerified
+                a.mx-3.btn.btn-info(href="/help/verification") Request a verification 
+            a.mx-3.btn.btn-info(href="/help/ticket") Open a ticket with an Admin 
+            a.mx-3.btn.btn-info(href="/help/your-tickets") View your tickets
+            a.mx-3.btn.btn-info(href="https://forms.gle/J2CG8gKD3Q5RKvyY7" target="_blank") Report bug
+        else 
+            a.mx-3.btn.btn-info(href="/admin/help/verification") See verification requests 
+            a.mx-3.btn.btn-info(href="/admin/help/ticket") See tickets
+            a.mx-3.btn.btn-info(href="/admin/verify_unverify_user") Verify or unverify a user
+            a.mx-3.btn.btn-info(href="/admin/delete_account") Delete a user account
+        if user.username == "shad"
+            br
+            br
+            a.mx-3.btn.btn-info(href="/owner/add_remove_admin") Add or remove admin

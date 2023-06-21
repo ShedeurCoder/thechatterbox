@@ -1,0 +1,10 @@
+extends layout 
+block content 
+    h1.bg-danger.p-3.m-4 WARNING: DELETING YOUR ACCOUNT IS IRREVERSIBLE. RETURN TO SAFETY 
+        a(href="/home") HERE
+    form(action="", method="post" onsubmit="return confirm('Are you sure you want to DELETE your ACCOUNT? this is IRREVERSIBLE and you CANNOT UNDO this.')") 
+        input(type="hidden", name="username" value=user.username)
+        .form-group
+            label(for="password") Password: 
+            input#password.form-control(type="password" name="password" placeholder='Password' required)
+        button.btn.btn-outline-danger(type="submit") Delete account    

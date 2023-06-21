@@ -1,0 +1,16 @@
+extends layout 
+block content 
+    h2 Login to your account 
+    h3 Don't have an account? 
+        a(href="/signup") Sign up!
+    hr
+    form(action="/login" method="POST")
+        .form-group 
+            label(for="username") Username 
+            input.form-control#username(type="text" name="username" placeholder="e.g. john_smith_in_da_house" required)
+        .form-group 
+            label(for="password") Password 
+            input.form-control#password(type="password" name="password" placeholder="e.g. j*873hTNdjwG+3dj#" required) 
+        button.btn-success.btn(type="submit") Login
+    b.copyright-home &copy; The Chatterbox 2022-2023
+    b.version-login The Chatterbox v1.3

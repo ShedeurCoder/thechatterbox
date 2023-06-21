@@ -1,0 +1,46 @@
+mixin userForm(user={})
+    form(action="" method="POST" enctype="multipart/form-data")
+        if !url.startsWith('/profile/edit')
+            .form-group     
+                label(for="first_name") First Name 
+                input.form-control#first_name(type="text", name="first_name" value=user.first_name required placeholder="e.g. John")
+            .form-group     
+                label(for="surname") Surname 
+                input.form-control#surname(type="text", name="surname" value=user.surname required placeholder="e.g. Smith")
+
+        .form-group 
+            label(for="displayName") Display name (optional)
+            input.form-control#displayName(type="text" name='displayName' value=user.displayName placeholder="e.g. John Smith (he/him)")
+        .form-group     
+            label(for="profile_picture") Profile Picture (optional)
+            input.form-control-file#profile_picture(type="file", name="profile_picture" accept="image/*")
+
+        if !url.startsWith("/profile/edit")
+            .form-group     
+                label(for="email") Email
+                input.form-control#email(type="email", name="email" required placeholder="e.g. johnsmith@gmail.com")
+            .form-group     
+                label(for="confirm_email") Confirm Email
+                input.form-control#confirm_email(type="email", name="confirm_email" required placeholder="e.g. johnsmith@gmail.com")
+            .form-group     
+                label(for="username") Username (Only a-z (lowercase), 0-9, and underscores are allowed) 
+                input.form-control#username(type="text", name="username" value=user.username required placeholder="e.g. john_smith_in_da_house" maxlength="20" pattern='[a-z0-9_]{1,}')
+            .form-group     
+                label(for="password") Password
+                input.form-control#password(type="password", name="password" minlength="8" placeholder="e.g. j*873hTNdjwG+3dj#" required)
+            .form-group     
+                label(for="confirm_password") Confirm Password
+                input.form-control#confirm_password(type="password", name="confirm_password" minlength="8" placeholder="e.g. j*873hTNdjwG+3dj#" required)
+
+        .form-group     
+            label(for="description") Bio (optional)
+            textarea.form-control#description(name="description", cols="30", rows="3", maxlength="150" placeholder="Hi, my name is John Smith, and I like to live life. Make sure to follow me so you can see my adventures!")=user.description
+        .form-group     
+            label(for="link") Link (include "https://" or "http://") (optional)
+            input.form-control#link(type="url", name="link"  value=user.link placeholder="e.g. https://johnsmith.com")
+        if !url.startsWith('/profile/edit')
+            .form-check 
+                input#agree-to-terms.form-check-input(type="checkbox" required)
+                label.form-check-label(for="agree-to-terms") I understand, read, and agree to the 
+                    a(href="/terms-of-service" target="_blank") Terms of Service 
+        button.btn.btn-success(type="submit") Confirm

@@ -1,0 +1,16 @@
+extends layout 
+include mixins/_user_form 
+block content 
+    h2 Sign up to join the fun!
+    h3 Have an account already? 
+        a(href="/login") Login!
+    h4
+        a(href="/about" target="_blank") Why The Chatterbox? 
+    p=errorMessage
+    if errors
+        ul 
+            for error in errors
+                li=error.msg
+    hr
+    +userForm()
+    b.version-signup The Chatterbox v1.3 &nbsp;

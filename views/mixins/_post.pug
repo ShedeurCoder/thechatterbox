@@ -1,0 +1,31 @@
+mixin post(post, pinned={})
+    a(href=`/user/${post.user}/post/${post._id}`) 
+        .post-wrapper
+            if pinned === 'asdf'
+                small.fas.fa-thumbtack
+                b &nbsp; Pinned post
+                br.mb-2
+            img.post-pfp(src=`https://res.cloudinary.com/dmftho0cx/image/upload/${post.userPFP}`)
+            span &nbsp; &nbsp;
+            h3=`@${post.user}`
+            if post.verified 
+                i.fas.fa-check-circle 
+            -let readableDate = new Date(post.date).toString();
+            -let a = readableDate.split(" ")
+            -b = a.splice(1, 3)
+            -let styleDate = b.join(" ")
+            span.post-date=styleDate
+            br
+            p.wrap=post.message
+            if post.comments != null
+                span.float-right.fas.fa-comment-alt=` ${post.comments}`
+            .float-right.mr-4 
+                if !post.likes.includes(user.username)
+                    span.fas.fa-heart=` ${post.likes.length}`
+                else if post.likes.includes(user.username)
+                    span.fas.fa-heart.liked=` ${post.likes.length}`
+            if user.username == post.user || user.isAdmin
+                form(action=`/user/${post.user}/post/${post._id}/delete`, method="post" onsubmit="return confirm('Do you really want to delete this box? This action is irreversible!');") 
+                    input(type="hidden", name="postOwner" value=post.user)
+                    input(type="hidden", name="currentUser" value=user.username)
+                    button.fas.fa-trash(type="submit")

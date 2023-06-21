@@ -1,0 +1,28 @@
+extends layout 
+block content 
+    .profile-header
+        img(src=`https://res.cloudinary.com/dmftho0cx/image/upload/${deletingUser.profile_picture}`)
+        if deletingUser.displayName == ""
+            h1=deletingUser.first_name 
+        else 
+            h1=deletingUser.displayName
+        h2=deletingUser.username 
+            if deletingUser.isVerified 
+                span &nbsp;
+                i.fas.fa-check-circle 
+        if deletingUser.isOwner
+            small Owner
+        else if deletingUser.isAdmin
+            small Admin
+        p=deletingUser.description
+        if deletingUser.followersList.length == 1
+            b=`${deletingUser.followersList.length} Follower  | `
+        else
+            b=`${deletingUser.followersList.length} Followers  | `
+        b=`${deletingUser.following.length} Following`
+        hr.bg-light
+        if !deletingUser.isAdmin || user.isOwner
+            a(href=`/admin/delete/${deletingUser.username}`) 
+                button.bg-danger.text-light.py-2(style="font-size: 1.5rem") Delete account
+        else 
+            small User is an admin. You cannot delete them.

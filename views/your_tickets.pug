@@ -1,0 +1,23 @@
+extends layout 
+block content 
+    if url.startsWith('/admin')
+        if !url.includes("closed")
+            h1 All open tickets
+            a(href="/admin/help/ticket/closed") View all closed tickets
+        else 
+            h1 All closed tickets 
+            a(href="/admin/help/ticket") View all open tickets
+    else
+        h1 Your tickets 
+    each ticket in tickets 
+        .ticket-wrapper 
+            a(href=`/help/tickets/${ticket._id}`)
+                .ticket-body 
+                    h3=`Ticket by ${ticket.username}`
+                        -let readableDate = new Date(ticket.date).toString();
+                        -let a = readableDate.split(" ")
+                        -let b = a.splice(0, 5)
+                        -let styleDate = b.join(" ")
+                        span.float-right=styleDate
+                    p=ticket.message
+                    span=`Open: ${ticket.open}`

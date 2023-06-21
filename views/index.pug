@@ -1,0 +1,25 @@
+extends layout 
+include mixins/_post 
+block content 
+    h1.text-center The Chatterbox Home
+    -notifs=notifs.reverse()
+    form(action="/post", method="post") 
+        input(type="hidden", name="user" value=user.username)
+        input(type="hidden", name="userPFP" value=user.profile_picture)
+        input(type="hidden", name="verified" value=`${user.isVerified}`)
+        .input-group
+            input.form-control.bg-dark.text-light.mr-2(autocomplete="off" style="font-size: 1.3rem; border: none; border-bottom: 3px black solid;" type="text", name="message" placeholder="Talk about something" maxlength='300')
+            button.btn.btn-primary(type="submit") Post
+    .profile-posts
+        each post in posts 
+            .post-wrapper-wrapper
+                +post(post)
+    -var pageB = parseInt(page) - 1;
+    -var pageA = parseInt(page) + 1;
+    .text-center
+        if page != 1 && page != 2
+            a.nextLastPage.btn.btn-primary(href=`/home/${pageB}`) Last page
+        if page == 2
+            a.nextLastPage.btn.btn-primary(href=`/home`) Last page 
+        if nextPage 
+            a.nextLastPage.btn.btn-primary(href=`/home/${pageA}`) Next

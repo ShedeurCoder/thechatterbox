@@ -1,0 +1,10 @@
+extends layout
+block content
+  if error.status == 404
+    img(src="/images/404logo.png" width="25%")
+    h1 oh no, it's a 404! go back to 
+      a(href="/") home! 
+  else 
+    h1= message
+    h2= error.status
+    pre.text-light #{error.stack}

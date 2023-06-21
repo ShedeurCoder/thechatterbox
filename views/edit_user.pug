@@ -1,0 +1,43 @@
+extends layout
+block content 
+    if url.startsWith('/settings/name')
+        h1 Change name
+        form(action="/settings/name", method="POST") 
+            .form-group 
+                label(for="first_name") First name: 
+                input#first_name.form-control(type="text", name="first_name" value=user.first_name required)
+            .form-group   
+                label(for="surname") Surname: 
+                input#surname.form-control(type="text", name="surname" value=user.surname required)
+            button.btn.btn-primary(type="submit") Submit
+    if url.startsWith('/settings/email')
+        h1 Change email
+        form(action="/settings/email", method="POST") 
+            .form-group 
+                label(for="email") Email: 
+                input#email.form-control(type="email", name="email" value=user.email required)
+            button.btn.btn-primary(type="submit") Submit
+    if url.startsWith('/settings/username')
+        h1 Change username 
+         form(action="/settings/username", method="POST") 
+            .form-group 
+                small (a-z (lowercase), 0-9, and underscores are allowed. Maxlength of 20 characters.) 
+                br
+                small Changing usernames will get rid of verification marks if you have one
+                br
+                label(for="username") Username:
+                input.form-control#username(type="text", name="username" value=user.username required placeholder="e.g. john_smith_in_da_house" maxlength="20" pattern='[a-z0-9_]{1,}')
+            button.btn.btn-primary(type="submit") Submit
+    if url.startsWith('/settings/password')
+        h1=title
+        form(action="/settings/password", method="POST") 
+            .form-group 
+                label(for="oldPassword") Old password
+                input#oldPassword.form-control(type="password", name="oldPassword" required)
+            .form-group 
+                label(for="password") New password
+                input#password.form-control(type="password", name="password" required)
+            .form-group 
+                label(for="confirm_password") Confirm new password
+                input#confirm_password.form-control(type="password", name="confirm_password" required)
+            button.btn.btn-primary(type="submit") Submit

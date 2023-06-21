@@ -1,0 +1,188 @@
+doctype html
+html
+  head
+    if user
+      if notifs.length > 0
+        title=`(${notifs.length}) ${title}`
+      else 
+        title=title
+    else
+      title=title
+    link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous")
+    link(rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous")
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel="shortcut icon", href="/images/transparentlogo.png", type="image/x-icon")
+  body.bg-dark.text-light
+    header 
+      nav
+        a(href="/").logo.mb-2 
+          img.logoImg(src="/images/logo.png", alt="The Chatterbox")
+        a(href="/") 
+          i(class="fas fa-home") &nbsp;
+          span.navName Home 
+        a(href="/search") 
+          i(class="fas fa-search") &nbsp;
+          span.navName Search
+        a(href="/explore") 
+          i.fas.fa-compass &nbsp;
+          span.navName Explore
+        a.notif(href="/" type="button" data-toggle="modal" data-target="#notificationModal")
+          i(class="fas fa-bell") &nbsp;
+          if user
+            if notifs.length > 0
+              .button-badge=notifs.length
+          span.navName Notifs
+        a(href="/profile")
+          i(class="fas fa-user") &nbsp;
+          span.navName Profile 
+        button.more(href="#" onclick='showMore()') 
+          i.fas.fa-ellipsis-h &nbsp;
+          span.navName More
+        if user 
+          a(href="/profile") 
+            img.help-pfp.text-center(src=`https://res.cloudinary.com/dmftho0cx/image/upload/${user.profile_picture}`)
+          .moreOptions#moreOptions.displayNone.px-4.py-2.with-user 
+            a.my-2(href="/settings") 
+              i.fas.fa-cog.mr-2
+              small Settings
+            a.my-2(href="/help")
+              i.fas.fa-question-circle.mr-2
+              small Support
+            a.my-2(href="/saves")
+              i.fas.fa-bookmark.mr-2
+              small Saves
+            a.my-2(href="/about")
+              i.fas.fa-info-circle.mr-2
+              small About 
+            a.my-2(href="/logout")
+              i.fas.fa-arrow-alt-circle-left.mr-2
+              small Logout
+        else 
+          .moreOptions#moreOptions.displayNone.px-4.py-2.without-user 
+            a.my-2(href="/settings") 
+              i.fas.fa-cog.mr-2
+              small Settings
+            a.my-2(href="/help")
+              i.fas.fa-question-circle.mr-2
+              small Support
+            a.my-2(href="/saves")
+              i.fas.fa-bookmark.mr-2
+              small Saves
+            a.my-2(href="/about")
+              i.fas.fa-info-circle.mr-2
+              small About 
+            a.my-2(href="/logout")
+              i.fas.fa-arrow-alt-circle-left.mr-2
+              small Logout
+    block content
+    unless url.startsWith("/signup") || url.startsWith('/login') || url.startsWith('/about') || url.startsWith('/help') || url.startsWith('/admin') || url.startsWith('/terms-of-service')
+      footer  
+        button#newTweet.btn.btn-primary.fas.fa-plus-circle(type="button" data-toggle="modal" data-target="#postModal")
+          span.sr-only New post
+      .modal.fade#postModal
+        .modal-dialog
+          .modal-content.bg-dark.text-light
+            .modal-header 
+              h3 New post 
+              button.close(type="button" data-dismiss="modal" style="color: white") &times;
+            form(action="/post" method="POST")
+              input(type="hidden", name="verified" value=`${user.isVerified}`)
+              input(type="hidden", name="user" value=user.username)
+              input(type="hidden", name="userPFP" value=user.profile_picture)
+              .modal-body 
+                .form-group 
+                  label(for="message") Talk about something: 
+                  textarea#message.form-control(name="message", cols="3" rows="4" required placeholder="What's going on?" maxlength="300")
+              .modal-footer 
+                button.btn.btn-primary(type="submit") Create box
+    if user
+      .modal.fade#notificationModal
+        .modal-dialog
+          .modal-content.bg-dark.text-light
+            .modal-header 
+              h3 Notifications
+              button.close(type="button" data-dismiss="modal" style="color: white") &times;
+            .modal-body 
+              if notifs.length > 0 || read.length > 0
+                .buttons.text-center.mb-3
+                  form(action="/notification/delete-all", method="post" onsubmit="return confirm('Delete all notifications?')") 
+                    button.btn.btn-danger.mb-1(type="submit") Delete all
+                  form(action="/notification/mark-all-read", method='POST') 
+                    button.btn.btn-primary.mb-1(type="submit") Mark all as read
+                  form(action="/notification/delete-all-read", method="post" onsubmit="return confirm('Delete all read notifications?')") 
+                    button.btn.btn-danger.mb-1(type="submit") Delete read
+              if notifs.length > 0
+                each notif in notifs
+                  .notification.unread
+                    .unread-marker
+                    form(action="/read-notif", method="post", id=`notif${notif._id}`)
+                      input(type="hidden", name="id" value=notif._id)
+                      input(type="hidden", name="link" value=notif.link)
+                      a(onclick=`document.getElementById("notif${notif._id}").submit()`).notif-submit
+                        -let readableDate = new Date(notif.date).toString();
+                        -let a = readableDate.split(" ")
+                        -b = a.splice(1, 3)
+                        -let styleDate = b.join(" ")
+                        b=styleDate
+                        br
+                        b=`@${notif.from} ` 
+                        if notif.type == "follow"
+                            span just followed you! 
+                        else if notif.type=="comment"
+                            span commented on your post!
+                        else if notif.type=="like"
+                            span liked your post!
+                        else if notif.type=="likeComment"
+                            span liked your comment!
+                        else if notif.type=="replyComment"
+                            span replied to your comment!
+                        else if notif.type=="mention"
+                            span mentioned you in a post! 
+                        else if notif.type=="commentMention"
+                            span mentioned you in a comment!
+                        else if notif.type=="replyMention"
+                            span mentioned you in a reply!
+                        br
+                    form(action=`/notification`, method="post").mt-2
+                        input(type="hidden", name="id" value=notif._id)
+                        button.fas.fa-trash(type="submit")
+                  br
+              else 
+                h2.text-center You're all caught up!
+              if read.length > 0
+                h4.text-center Read notifications:
+                -read = read.reverse()
+                each notif in read 
+                  .notification
+                    a(href=notif.link).notif-submit
+                      -let readableDate = new Date(notif.date).toString();
+                      -let a = readableDate.split(" ")
+                      -b = a.splice(1, 3)
+                      -let styleDate = b.join(" ")
+                      b=styleDate
+                      br
+                      b=`@${notif.from} ` 
+                      if notif.type == "follow"
+                          span just followed you! 
+                      else if notif.type=="comment"
+                          span commented on your post!
+                      else if notif.type=="like"
+                          span liked your post!
+                      else if notif.type=="likeComment"
+                          span liked your comment!
+                      else if notif.type=="replyComment"
+                          span replied to your comment!
+                      else if notif.type=="mention"
+                          span mentioned you in a post! 
+                      else if notif.type=="commentMention"
+                          span mentioned you in a comment!
+                      else if notif.type=="replyMention"
+                          span mentioned you in a reply!
+                      br
+                    form(action=`/notification`, method="post").mt-2
+                      input(type="hidden", name="id" value=notif._id)
+                      button.fas.fa-trash(type="submit")
+                  br
+    script(src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous")
+    script(src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous")
+    script(src="/scripts/script.js") 

@@ -1,0 +1,34 @@
+extends layout 
+block content 
+    h1.text-danger.text-center ARE YOU SURE YOU WANT TO DELETE THIS ACCOUNT?
+    h2.text-danger.text-center IT IS IRREVERSIBLE
+    .profile-header
+        img(src=`https://res.cloudinary.com/dmftho0cx/image/upload/${deletingUser.profile_picture}`)
+        if deletingUser.displayName == ""
+            h1=deletingUser.first_name 
+        else 
+            h1=deletingUser.displayName
+        h2=deletingUser.username 
+            if deletingUser.isVerified 
+                span &nbsp;
+                i.fas.fa-check-circle  
+        if deletingUser.isOwner
+            small Owner
+        else if deletingUser.isAdmin
+            small Admin
+        p=deletingUser.description
+        if deletingUser.followersList.length == 1
+            b=`${deletingUser.followersList.length} Follower  | `
+        else
+            b=`${deletingUser.followersList.length} Followers  | `
+        b=`${deletingUser.following.length} Following`
+        hr.bg-light
+        if !deletingUser.isAdmin || user.isOwner
+            form(action="", method="post") 
+                button.bg-danger.text-light.py-2(style="font-size: 1.5rem" onclick="return confirm('Are you 100% sure you want to delete this account? The user will not be notified of this event.')") Delete account
+        else 
+            small User is an admin. You cannot delete them.
+            br
+        br
+        a(href="/help")
+            button.bg-success.text-light.py-2(style="font-size: 1.5rem") Back to safety

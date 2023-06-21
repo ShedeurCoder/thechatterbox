@@ -1,0 +1,7 @@
+extends layout 
+block content 
+    form(action="" method='POST')
+        .form-group
+            label(for="searchPerson") Search user to delete 
+            input.form-control#searchPerson(type="text" name="user" placeholder="Search user")
+        button.btn.btn-primary(type="submit") Search

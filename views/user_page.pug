@@ -1,0 +1,96 @@
+extends layout 
+include mixins/_post
+block content
+    if profileOwner != undefined
+        .profile-header
+            img(src=`https://res.cloudinary.com/dmftho0cx/image/upload/${profileOwner.profile_picture}`)
+            if profileOwner.displayName == ""
+                h1=profileOwner.first_name 
+            else 
+                h1=profileOwner.displayName
+            h2=`@${profileOwner.username}` 
+                if profileOwner.isVerified 
+                    span &nbsp;
+                    i.fas.fa-check-circle.verified-user 
+            if profileOwner.isOwner
+                small Owner
+            else if profileOwner.isAdmin
+                small Admin
+            else if profileOwner._id.equals('6443844463ca4aa6cec8961c') || profileOwner._id.equals('62c41abb0b915f43343b1e7a')
+                small Development tester
+            p.wrap#profileDescription=profileOwner.description
+            if profileOwner.link
+                a.profile-link(href=`${profileOwner.link}` target='_blank')
+                    i.fas.fa-link &nbsp;
+                    span=profileOwner.link
+                    br
+                    br
+            if profileOwner.followersList.length == 1
+                a.following-link(href=`/user/${profileOwner.username}/followers` data-toggle="modal" data-target="#followersModal") 
+                    b=`${profileOwner.followersList.length} Follower`
+            else
+                a.following-link(href=`/user/${profileOwner.username}/followers` data-toggle="modal" data-target="#followersModal") 
+                    b=`${profileOwner.followersList.length} Followers`
+            span.divider=` | `
+            a.following-link(href=`/user/${profileOwner.username}/following` data-toggle="modal" data-target="#followingModal") 
+                b=`${profileOwner.following.length} Following`
+            if user.username == profileOwner.username
+                br
+                br
+                a.btn.btn-outline-primary(href="/profile/edit") Edit profile
+            else if !user.following.includes(profileOwner.username)
+                br
+                br
+                form(action="", method="POST")
+                    input(type="hidden", name="to" value=`${profileOwner.username}`)
+                    input(type="hidden", name="from" value=`${user.username}`)
+                    input(type="hidden", name="link" value=`/user/${profileOwner.username}`)
+                    input(type="hidden", name="type" value=`follow`)
+                    button.btn.btn-primary(type="submit" style="font-size: 1.5rem") Follow
+            else 
+                br
+                br
+                form(action="", method="POST")
+                    button.btn.btn-light(type="submit") Unfollow
+        .profile-posts
+            if pinnedPost 
+                .post-wrapper-wrapper
+                    +post(pinnedPost, 'asdf')
+            each post in posts    
+                .post-wrapper-wrapper
+                    +post(post)
+        -var pageB = parseInt(page) - 1;
+        -var pageA = parseInt(page) + 1;
+        .text-center
+            if url.startsWith('/user')
+                if page != 1 && page != 2
+                    a.nextLastPage.btn.btn-primary(href=`/user/${profileOwner.username}/${pageB}`) Last page
+                if page == 2
+                    a.nextLastPage.btn.btn-primary(href=`/user/${profileOwner.username}`) Last page 
+                if nextPage 
+                    a.nextLastPage.btn.btn-primary(href=`/user/${profileOwner.username}/${pageA}`) Next page 
+            if url.startsWith('/profile')
+                if page != 1 && page != 2
+                    a.nextLastPage.btn.btn-primary(href=`/profile/${pageB}`) Last page 
+                if page == 2
+                    a.nextLastPage.btn.btn-primary(href="/profile") Last page 
+                if nextPage 
+                    a.nextLastPage.btn.btn-primary(href=`/profile/${pageA}`) Next page
+        .modal.fade#followingModal
+            .modal-dialog
+                .modal-content.bg-dark.text-light
+                    .modal-header 
+                        h3 Following
+                        button.close(type="button" data-dismiss="modal" style="color: white") &times;
+                    .modal-body 
+                        iframe(src=`/user/${profileOwner.username}/following`, frameborder="0") 
+        .modal.fade#followersModal
+            .modal-dialog
+                .modal-content.bg-dark.text-light
+                    .modal-header 
+                        h3 Followers
+                        button.close(type="button" data-dismiss="modal" style="color: white") &times;
+                    .modal-body 
+                        iframe(src=`/user/${profileOwner.username}/followers`, frameborder="0")                 
+    else 
+        h1.text-center This user doesn't exist...

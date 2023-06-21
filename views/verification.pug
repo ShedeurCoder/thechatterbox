@@ -1,0 +1,18 @@
+extends layout 
+block content 
+    h1.text-center Request a verification
+    .profile-posts.mt-5
+        form(action="" method="POST" style="width: 250px")
+            input(type="hidden", name="username" value=user.username required)
+            input(type="hidden", name="ticket_type" value="verification") 
+            button.btn-primary.btn(type="submit") Request
+    .mt-5 
+        .text-left 
+            h2 What is verification?
+            p Verification is used to show who is real and who is not. It is a really helpful tool for users who get a lot of fake accounts.
+        .text-right 
+            h2 How to verify?
+            p To be verified, you need at least 10 followers, and an approval from our mods. You can request from here.
+        .text-left 
+            h2 How long will it take?
+            p It will be 5 business days at most, with average being 3.

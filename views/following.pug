@@ -1,0 +1,22 @@
+doctype html
+html
+    head
+        title= title
+        link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous")
+        link(rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous")
+        link(rel='stylesheet', href='/stylesheets/style.css')
+        link(rel="shortcut icon", href="/images/transparentlogo.png", type="image/x-icon")
+    body.bg-dark 
+        each f in following 
+            .user-result-wrapper
+                a(href=`/user/${f.username}` target="_parent")
+                    img(src=`https://res.cloudinary.com/dmftho0cx/image/upload/${f.profile_picture}`)
+                    if f.displayName == ""
+                        h2=f.first_name 
+                    else 
+                        h2=f.displayName 
+                    h3=`@${f.username}` 
+                        if f.isVerified 
+                            span &nbsp;
+                            i.fas.fa-check-circle
+                    span.followers=`${f.followersList.length} Followers`

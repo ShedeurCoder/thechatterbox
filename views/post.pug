@@ -1,0 +1,99 @@
+extends layout 
+include mixins/_comment
+block content 
+    if post 
+        .main-post
+            a(href=`/user/${post.user}` style="color: white") 
+                img.post-pfp(src=`https://res.cloudinary.com/dmftho0cx/image/upload/${post.userPFP}`)
+                span &nbsp; &nbsp;
+                h2=`@${post.user}`
+                if post.verified 
+                    i.fas.fa-check-circle 
+            -let readableDate = new Date(post.date).toString();
+            -let a = readableDate.split(" ")
+            -b = a.splice(1, 3)
+            -let styleDate = b.join(" ")
+            span.post-date=styleDate
+            br
+            p.wrap.main-post-message(id=`e${post._id}` onload=`replaceLink('e${post._id}')`)=post.message
+            .float-right
+                form.like-form.mr-4(action=`/user/${post.user}/post/${post._id}/like`, method="post") 
+                    if post.user != user.username
+                        input(type='hidden' name='notif' value=1)
+                        input(type="hidden", name="to" value=`${post.user}`)
+                        input(type="hidden", name="from" value=`${user.username}`)
+                        input(type="hidden", name="link" value=`/user/${post.user}/post/${post._id}`)
+                        input(type="hidden", name="type" value=`like`)
+                    if !post.likes.includes(user.username)
+                        button.fas.fa-heart.likable(type="submit")
+                    else if post.likes.includes(user.username)
+                        button.fas.fa-heart.liked(type="submit")
+                    b.heart-number(data-toggle="modal" data-target="#likesModal")=` ${post.likes.length}`
+                span.fas.fa-comment-alt.mr-4=` ${post.comments}`
+                - var onclick = (user.saves.length >= 50 ? 'alert("You have too many saves."); return false' : '')
+                form.save-form(action=`/save/${post._id}` method='POST' onclick=onclick)
+                    if !user.saves.includes(post._id)
+                        button.fas.fa-bookmark.saveable(type='submit')
+                    else if user.saves.includes(post._id)
+                        button.fas.fa-bookmark.saved(type='submit')
+                if user.username == post.user 
+                    form(action=`/pin`, method="post" style='display: inline' onsubmit="return confirm ('Pin this post? It will replace your previous pinned post.')").ml-3
+                        input(type="hidden", name="postId", value=post._id)
+                        button(type="submit").pin-post 
+                            span.fas.fa-thumbtack(class=user.pinned == post._id ? 'pinned' : '') 
+            br
+            if user.username == post.user || user.isAdmin
+                form(action=`/user/${post.user}/post/${post._id}/delete`, method="post" onsubmit="return confirm('Do you really want to delete this box? This action is irreversible!');") 
+                    input(type="hidden", name="postOwner" value=post.user)
+                    input(type="hidden", name="currentUser" value=user.username)
+                    input(type="hidden" name='home' value=1)
+                    button.fas.fa-trash(type="submit")
+        form.comment-form(action=`/user/${post.user}/post/${post._id}/comment`, method="post") 
+            input(type="hidden" value=user.username name="user")
+            input(type="hidden" value=user.profile_picture name="userPFP")
+            input(type="hidden" value=post._id name="mainBox")
+            input(type="hidden", name="verified" value=`${user.isVerified}`)
+            //- for notifs
+            if post.user != user.username
+                input(type='hidden' name='notif' value=1)
+                input(type="hidden", name="to" value=`${post.user}`)
+                input(type="hidden", name="from" value=`${user.username}`)
+                input(type="hidden", name="link" value=`/user/${post.user}/post/${post._id}`)
+                input(type="hidden", name="type" value=`comment`)
+            .form-vis
+                input(type="text", name="message" placeholder="Make a comment" autocomplete="off" required)
+                button.btn.btn-primary(type="submit") Comment 
+        .comments
+            if pinnedComment
+                +comment(pinnedComment, post, {}, {}, 'asdf')
+            if highlight 
+                -var index = 0
+            else  
+                -var index = -1
+            each comment in comments 
+                if index == 0
+                    -var highlight = 1
+                    +comment(comment, post, highlight, open)
+                    -index = -1
+                else
+                    +comment(comment, post)
+        -var pageB = parseInt(currentPage) - 1;
+        -var pageA = parseInt(currentPage) + 1;
+        .text-center
+                if currentPage != 1 && currentPage != 2
+                    a.nextLastPage.btn.btn-primary(href=`/user/${post.user}/post/${post.id}/${pageB}`) Last page
+                if currentPage == 2
+                    a.nextLastPage.btn.btn-primary(href=`/user/${post.user}/post/${post.id}`) Last page 
+                if nextPage 
+                    a.nextLastPage.btn.btn-primary(href=`/user/${post.user}/post/${post.id}/${pageA}`) Next page 
+
+        .modal.fade#likesModal
+            .modal-dialog
+                .modal-content.bg-dark.text-light
+                    .modal-header 
+                        h3 Likes
+                        button.close(type="button" data-dismiss="modal" style="color: white") &times;
+                    .modal-body 
+                        iframe(src=`/user/${post.user}/post/${post._id}/likes`, frameborder="0") 
+    else 
+        h1.text-center Post not found

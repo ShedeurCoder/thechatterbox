@@ -1,0 +1,11 @@
+extends layout 
+include mixins/_post 
+block content 
+    h1.text-center Explore 
+    .profile-posts 
+        each post in randomPosts 
+            .post-wrapper-wrapper 
+                +post(post)
+    .text-center
+        a(href="#") 
+            button.btn.btn-primary(onclick="window.location.reload();") Refresh

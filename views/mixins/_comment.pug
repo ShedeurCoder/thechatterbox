@@ -1,0 +1,132 @@
+mixin comment(post, postOwner, highlight={}, open={}, pinned={})
+    .post-wrapper(class= highlight !== 1 ? "" : "highlight-comment")
+        //- main comment
+        if highlight == 1
+            small Highlighted Comment  
+            br.mb-2
+        if pinned === 'asdf'
+            small.fas.fa-thumbtack
+            b &nbsp; Pinned comment
+            br.mb-2
+        a(href=`/user/${post.user}` style="color: white;") 
+            img.post-pfp(src=`https://res.cloudinary.com/dmftho0cx/image/upload/${post.userPFP}`)
+            span &nbsp; &nbsp;
+            h3=`@${post.user}`
+            if post.verified 
+                i.fas.fa-check-circle 
+        -let readableDate = new Date(post.date).toString();
+        -let a = readableDate.split(" ")
+        -b = a.splice(1, 3)
+        -let styleDate = b.join(" ")
+        span.post-date=styleDate
+        br
+        p.wrap.comment-message(id=`e${post._id}`)=post.message
+        //- reply button
+        if user.username == postOwner.user 
+            form(action=`/pin/comment`, method="post" style='display: inline' onsubmit="return confirm ('Pin this comment? It will replace the previous pinned comment.')").ml-3.float-right
+                input(type="hidden", name="postId", value=postOwner._id)
+                input(type="hidden", name="commentId" value=post._id)
+                button(type="submit").pin-post 
+                    span.fas.fa-thumbtack(class=postOwner.pinned == post._id ? 'pinned' : '') 
+        if post.replies.length <= 15
+            span.float-right.fas.fa-comment-alt.mt-2#repliesButton(onclick=`showHideReplyForm("form${post._id}")`)=` ${post.replies.length}`
+        else 
+            span.float-right.fas.fa-comment-alt.mt-2#repliesButton(onclick=`alert("This comment has max amount of replies")`)=` ${post.replies.length}`
+        //- like button
+        .float-right
+            form.like-form.mr-4(action=`/user/${postOwner.user}/post/${postOwner._id}/${post._id}/like`, method="post") 
+                if post.user != user.username
+                    input(type='hidden' name='notif' value=1)
+                    input(type="hidden", name="to" value=`${post.user}`)
+                    input(type="hidden", name="from" value=`${user.username}`)
+                    input(type="hidden", name="link" value=`/user/${postOwner.user}/post/${postOwner._id}?c=${post._id}`)
+                    input(type="hidden", name="type" value=`likeComment`)
+                if !post.likes.includes(user.username)
+                    button.fas.fa-heart.likable(type="submit")
+                else if post.likes.includes(user.username)
+                    button.fas.fa-heart.liked(type="submit")
+                b.heart-number(data-toggle="modal" data-target=`#e${post._id}Likes`)=` ${post.likes.length}`
+        //- delete
+        if user.username == post.user || user.isAdmin
+            form(action=`/user/${postOwner.user}/post/${postOwner._id}/comment/delete`, method="post" onsubmit="return confirm('Do you really want to delete this box? This action is irreversible!');") 
+                input(type="hidden", name="postOwner" value=post.user)
+                input(type="hidden", name="currentUser" value=user.username)
+                input(type="hidden" name="postId" value=post._id)
+                button.fas.fa-trash(type="submit")
+    //- reply form
+    form.replyToComment.text-center.mb-3.displayNone(action=`/user/${postOwner.user}/post/${postOwner._id}/comment/${post._id}/reply`, method="post" id=`form${post._id}`) 
+        input(type="hidden" value=user.username name="user")
+        input(type="hidden" value=user.profile_picture name="userPFP")
+        input(type="hidden", name="verified" value=`${user.isVerified}`)
+        //- for notif
+        if post.user != user.username
+            input(type='hidden' name='notif' value=1)
+            input(type="hidden", name="to" value=`${post.user}`)
+            input(type="hidden", name="from" value=`${user.username}`)
+            input(type="hidden", name="link" value=`/user/${postOwner.user}/post/${postOwner._id}?c=${post._id}&r=open`)
+            input(type="hidden", name="type" value=`replyComment`)
+        .replyInput 
+            label.sr-only(for="message") Reply 
+            input#message.bg-dark.text-light.replyMessage.p-2(autocomplete="off" type="text", name="message" placeholder='Reply to comment' maxlength='200')
+        button.reply-button.p-1(type="submit") Reply 
+        button.cancel-reply.p-1(type='button' onclick=`showHideReplyForm("form${post._id}")`) Cancel
+    //- show replies
+    if post.replies.length > 0
+        if open == 1
+            .showReplies.text-center 
+                span.text-center.show-reply(onclick=`showHideReplies("repliesOf${post._id}", "show${post._id}")` id=`show${post._id}`) Hide replies 
+                    i.fas.fa-caret-up  
+            .replies.mb-4(id=`repliesOf${post._id}`)
+                each reply in post.replies
+                    .reply-wrapper 
+                        a(href=`/user/${reply.user}` style="color: white;") 
+                            img.post-pfp(src=`https://res.cloudinary.com/dmftho0cx/image/upload/${reply.userPFP}`)
+                            span &nbsp; &nbsp;
+                            h3=`@${reply.user}`
+                        if reply.verified 
+                            i.fas.fa-check-circle 
+                        -let readableDate1 = new Date(reply.date).toString();
+                        -let a1 = readableDate.split(" ")
+                        -b1 = a1.splice(1, 3)
+                        -let styleDate1 = b1.join(" ")
+                        span.post-date=styleDate1
+                        br
+                        p.wrap.reply-message(id=`a${reply._id}`)=reply.message
+                        if user.username == reply.user || user.isAdmin
+                            form(action=`/user/${postOwner.user}/post/${postOwner._id}/reply/delete`, method="post" onsubmit="return confirm('Do you really want to delete this box? This action is irreversible!');") 
+                                input(type="hidden", name="comment" value=post._id)
+                                input(type="hidden" name="replyId" value=reply._id)
+                                button.fas.fa-trash(type="submit")
+        else
+            .showReplies.text-center 
+                span.text-center.show-reply(onclick=`showHideReplies("repliesOf${post._id}", "show${post._id}")` id=`show${post._id}`) Show replies 
+                    i.fas.fa-caret-down 
+            .replies.mb-4.displayNone(id=`repliesOf${post._id}`)
+                each reply in post.replies
+                    .reply-wrapper 
+                        a(href=`/user/${reply.user}` style="color: white;") 
+                            img.post-pfp(src=`https://res.cloudinary.com/dmftho0cx/image/upload/${reply.userPFP}`)
+                            span &nbsp; &nbsp;
+                            h3=`@${reply.user}`
+                        if reply.verified 
+                            i.fas.fa-check-circle 
+                        -let readableDate1 = new Date(reply.date).toString();
+                        -let a1 = readableDate.split(" ")
+                        -b1 = a1.splice(1, 3)
+                        -let styleDate1 = b1.join(" ")
+                        span.post-date=styleDate1
+                        br
+                        p.wrap.reply-message(id=`e${reply._id}`)=reply.message
+                        if user.username == reply.user || user.isAdmin
+                            form(action=`/user/${postOwner.user}/post/${postOwner._id}/reply/delete`, method="post" onsubmit="return confirm('Do you really want to delete this box? This action is irreversible!');") 
+                                input(type="hidden", name="comment" value=post._id)
+                                input(type="hidden" name="replyId" value=reply._id)
+                                button.fas.fa-trash(type="submit")
+    .modal.fade.likesModal(id=`e${post._id}Likes`)
+        .modal-dialog
+            .modal-content.bg-dark.text-light
+                .modal-header 
+                    h3 Likes
+                    button.close(type="button" data-dismiss="modal" style="color: white") &times;
+                .modal-body 
+                    iframe(src=`/user/${postOwner.user}/post/${postOwner._id}/${post._id}/likes`, frameborder="0" loading="lazy") 
