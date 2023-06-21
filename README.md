@@ -21,6 +21,7 @@ Current version: v1.3.01
 <ul>
 <li>Minor bug fixes</li>
 </ul>
+<hr>
 <h3>v1.3</h3>
 
 <b>Changes</b>
