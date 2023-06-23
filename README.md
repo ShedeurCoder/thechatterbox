@@ -1,16 +1,12 @@
 # The Chatterbox Source code
 Official source code for The Chatterbox <br>
-Current version: v1.3.01
+Current version: v1.3
 <br><br>
 ![tcblogo-nobg](https://user-images.githubusercontent.com/81215635/235458527-9e6e1d52-8bc2-48e0-ab21-5e6f24cbfd9f.png)
 
 <h1>Change log</h1>
 
 <h2>v1.3 (current version)</h2>
-
-<b>Changes</b>
-<h2>v1.3</h2>
-
 <b>Changes</b>
 <ul>
 <li>@-ing someone will link to them and will notify them</li>
