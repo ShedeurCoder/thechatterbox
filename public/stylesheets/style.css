@@ -146,6 +146,7 @@ button.fa-trash:hover {
 }
 .main-post p {
   font-size: 1rem;
+  word-wrap: break-word;
 }
 .about-page p {
   font-size: 1.3rem;
