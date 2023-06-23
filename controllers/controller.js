@@ -196,7 +196,7 @@ exports.profilePage = async (req, res, next) => {
         const unposts = Post.find({user: username}).sort({date: -1}).limit(postPageLimit);
         const page = 1;
         const unnextPost = Post.findOne({user: username}).sort({date: -1}).skip(postPageLimit);
-        const pinnedPost = profileOwner ? (await Post.findById(profileOwner.pinned)) : (console.log('e'))
+        const pinnedPost = profileOwner && profileOwner.pinned ? (await Post.findById(profileOwner.pinned)) : (console.log('e'))
         const [posts, nextPost] = await Promise.all([unposts, unnextPost]);
         let nextPage;
         if (nextPost != null) {
@@ -568,7 +568,7 @@ exports.profilePageNumber = async (req, res, next) => {
         const unposts = Post.find({user: username}).sort({date: -1}).skip(skipAmount).limit(postPageLimit);
         const unnextPost = Post.findOne({user: username}).sort({date: -1}).skip(skipAmount + postPageLimit);
         const [posts, nextPost] = await Promise.all([unposts, unnextPost]);
-        const pinnedPost = profileOwner ? (await Post.findById(profileOwner.pinned)) : (console.log())
+        const pinnedPost = profileOwner && profileOwner.pinned ? (await Post.findById(profileOwner.pinned)) : (console.log())
         let nextPage;
         if (nextPost != null) {
             nextPage = true;
@@ -607,65 +607,69 @@ exports.profileNumber = async (req, res, next) => {
 }
 exports.postPage = async (req, res, next) => {
     try {
-        const postId = req.params.postId;
-        const unPost = Post.findOne({_id: postId});
-        const unComments = Comment.find({mainBox: postId}).limit(postPageLimit).sort({date: -1});
-        const unNextPost = Comment.findOne({mainBox: postId}).sort({date: -1}).skip(postPageLimit);
-        const unHComment = Comment.findOne({_id: req.query.c});
-        const [post, comments, nextPost, hComment] = await Promise.all([unPost, unComments, unNextPost, unHComment]);
-        const pinnedComment = post.pinned ? (await Comment.findById(post.pinned)) : ('')
-        let highlight = false
-        // for highlighted comment
-        if (hComment) {
-            let index = -1
-            for(let i = 0; i < comments.length; i++) {
-                if(comments[i]._id.equals(hComment._id)) {
-                    index = i;
-                    break;
+        if (req.params.postId.match(/^[0-9a-f]{24}$/i)) {
+            const postId = req.params.postId;
+            const unPost = Post.findOne({_id: postId});
+            const unComments = Comment.find({mainBox: postId}).limit(postPageLimit).sort({date: -1});
+            const unNextPost = Comment.findOne({mainBox: postId}).sort({date: -1}).skip(postPageLimit);
+            const unHComment = Comment.findOne({_id: req.query.c});
+            const [post, comments, nextPost, hComment] = await Promise.all([unPost, unComments, unNextPost, unHComment]);
+            const pinnedComment = post && post.pinned ? (await Comment.findById(post.pinned)) : ('')
+            let highlight = false
+            // for highlighted comment
+            if (hComment) {
+                let index = -1
+                for(let i = 0; i < comments.length; i++) {
+                    if(comments[i]._id.equals(hComment._id)) {
+                        index = i;
+                        break;
+                    }
+                }
+                if (index > -1) {
+                    comments.splice(index, 1)
+                }
+                comments.unshift(hComment)
+                highlight = true
+            }
+
+            // for pinned comment
+            if (pinnedComment) {
+                let index = -1
+                for(let i = 0; i < comments.length; i++) {
+                    if(comments[i]._id.equals(pinnedComment._id)) {
+                        index = i;
+                        break;
+                    }
+                }
+                if (index > -1) {
+                    comments.splice(index, 1)
                 }
             }
-            if (index > -1) {
-                comments.splice(index, 1)
-            }
-            comments.unshift(hComment)
-            highlight = true
-        }
 
-        // for pinned comment
-        if (pinnedComment) {
-            let index = -1
-            for(let i = 0; i < comments.length; i++) {
-                if(comments[i]._id.equals(pinnedComment._id)) {
-                    index = i;
-                    break;
+            let pinnedEqualsHComment = false
+            if (pinnedComment && hComment) {
+                if (pinnedComment._id.equals(hComment._id)) {
+                    pinnedEqualsHComment = true
                 }
             }
-            if (index > -1) {
-                comments.splice(index, 1)
+
+            if (req.query.r == 'open') {
+                var open = 1
+            } else {
+                var open = -1
             }
-        }
 
-        let pinnedEqualsHComment = false
-        if (pinnedComment && hComment) {
-            if (pinnedComment._id.equals(hComment._id)) {
-                pinnedEqualsHComment = true
+            const currentPage = 1;
+            let nextPage;
+            if (nextPost != null) {
+                nextPage = true;
+            } else {
+                nextPage = false;
             }
-        }
-
-        if (req.query.r == 'open') {
-            var open = 1
+            res.render('post', {title: `Post by ${req.params.username}`, post, comments, currentPage, nextPage, highlight, open, pinnedComment, pinnedEqualsHComment});
         } else {
-            var open = -1
+            res.render('post', {title: 'Post does not exist'})
         }
-
-        const currentPage = 1;
-        let nextPage;
-        if (nextPost != null) {
-            nextPage = true;
-        } else {
-            nextPage = false;
-        }
-        res.render('post', {title: `Post by ${req.params.username}`, post, comments, currentPage, nextPage, highlight, open, pinnedComment, pinnedEqualsHComment});
     } catch(error) {
         next(error);
     }
@@ -745,33 +749,37 @@ exports.deleteReply = async (req, res, next) => {
 }
 exports.postPageNum = async (req, res, next) => {
     try {
-        const postId = req.params.postId;
-        const currentPage = req.params.pageNum;
-        const skipAmount = (parseInt(currentPage) - 1) * postPageLimit;
-        const unPost = Post.findOne({_id: postId});
-        const unComments = Comment.find({mainBox: postId}).sort({date: -1}).skip(skipAmount).limit(postPageLimit);
-        const unNextPost = Comment.findOne({mainBox: postId}).sort({date: -1}).skip(skipAmount + postPageLimit);
-        const [post, comments, nextPost] = await Promise.all([unPost, unComments, unNextPost]);
-        const pinnedComment = post.pinned ? (await Comment.findById(post.pinned)) : ('')
-        let nextPage;
-        if (nextPost != null) {
-            nextPage = true;
-        } else {
-            nextPage = false;
-        }
-        if (pinnedComment) {
-            let index = -1
-            for(let i = 0; i < comments.length; i++) {
-                if(comments[i]._id.equals(pinnedComment._id)) {
-                    index = i;
-                    break;
+        if (req.params.postId.match(/^[0-9a-f]{24}$/i)) {
+            const postId = req.params.postId;
+            const currentPage = req.params.pageNum;
+            const skipAmount = (parseInt(currentPage) - 1) * postPageLimit;
+            const unPost = Post.findOne({_id: postId});
+            const unComments = Comment.find({mainBox: postId}).sort({date: -1}).skip(skipAmount).limit(postPageLimit);
+            const unNextPost = Comment.findOne({mainBox: postId}).sort({date: -1}).skip(skipAmount + postPageLimit);
+            const [post, comments, nextPost] = await Promise.all([unPost, unComments, unNextPost]);
+            const pinnedComment = post && post.pinned ? (await Comment.findById(post.pinned)) : ('')
+            let nextPage;
+            if (nextPost != null) {
+                nextPage = true;
+            } else {
+                nextPage = false;
+            }
+            if (pinnedComment) {
+                let index = -1
+                for(let i = 0; i < comments.length; i++) {
+                    if(comments[i]._id.equals(pinnedComment._id)) {
+                        index = i;
+                        break;
+                    }
+                }
+                if (index > -1) {
+                    comments.splice(index, 1)
                 }
             }
-            if (index > -1) {
-                comments.splice(index, 1)
-            }
+            res.render('post', {title: `Post by ${req.params.username}`, post, comments, currentPage, nextPage, pinnedComment});
+        } else {
+            res.render('post', {title: 'Post does not exist'})
         }
-        res.render('post', {title: `Post by ${req.params.username}`, post, comments, currentPage, nextPage, pinnedComment});
     } catch(error) {
         next(error);
     }

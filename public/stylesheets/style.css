@@ -94,6 +94,7 @@ i.fa-check-circle {
 .post-wrapper p {
   font-size: 1.2rem;
   margin-top: 0.5em;
+  word-wrap: break-word;
 }
 .post-wrapper-wrapper a {
   color: white;

@@ -6,22 +6,32 @@ Current version: v1.3.01
 
 <h1>Change log</h1>
 
-<h2>v1.3.01 (current version)</h2>
+<h2>v1.3 (current version)</h2>
+
+<b>Changes</b>
+<h2>v1.3</h2>
 
 <b>Changes</b>
 <ul>
-<li>Minor bug fixes</li>
+<li>@-ing someone will link to them and will notify them</li>
+<li>Pinned posts to profile</li>
+<li>Pinned comments to posts</li>
+<li>Comic sans font toggle</li>
+</ul>
+<b>Hotfix A</b>
+<ul>
+<li>Fixed "user not found" page showing error</li>
+<li>Fixed post not showing if no pinned comment</li>
+</ul>
+<b>Hotfix B</b>
+<ul>
+<li>Fixed profile not showing if there is no pinned post</li>
+<li>Fixed "post not found" page showing error</li>
+<li>Fixed problematic posts</li>
 </ul>
 
 <details>
 <summary><h2>v1.3 (current major version)</h2></summary>
-<h3>v1.3.01 (current version)</h3>
-
-<b>Changes</b>
-<ul>
-<li>Minor bug fixes</li>
-</ul>
-<hr>
 <h3>v1.3</h3>
 
 <b>Changes</b>
@@ -30,6 +40,17 @@ Current version: v1.3.01
 <li>Pinned posts to profile</li>
 <li>Pinned comments to posts</li>
 <li>Comic sans font toggle</li>
+</ul>
+<b>Hotfix A</b>
+<ul>
+<li>Fixed "user not found" page showing error</li>
+<li>Fixed post not showing if no pinned comment</li>
+</ul>
+<b>Hotfix B</b>
+<ul>
+<li>Fixed profile not showing if there is no pinned post</li>
+<li>Fixed "post not found" page showing error</li>
+<li>Fixed problematic posts</li>
 </ul>
 
 </details>
