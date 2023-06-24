@@ -1,155 +1,134 @@
-# The Chatterbox Source code
-Official source code for The Chatterbox <br>
-Current version: v1.3
-<br><br>
-![tcblogo-nobg](https://user-images.githubusercontent.com/81215635/235458527-9e6e1d52-8bc2-48e0-ab21-5e6f24cbfd9f.png)
+<h1 align='center'>The Chatterbox Source code</h1>
 
-<h1>Change log</h1>
+![tcblogo-nobg](https://github.com/ShedeurCoder/thechatterbox/assets/81215635/c1c31728-81f0-495d-bcd2-82b537cdcc64)
 
-<h2>v1.3 (current version)</h2>
-<b>Changes</b>
-<ul>
-<li>@-ing someone will link to them and will notify them</li>
-<li>Pinned posts to profile</li>
-<li>Pinned comments to posts</li>
-<li>Comic sans font toggle</li>
-</ul>
-<b>Hotfix A</b>
-<ul>
-<li>Fixed "user not found" page showing error</li>
-<li>Fixed post not showing if no pinned comment</li>
-</ul>
-<b>Hotfix B</b>
-<ul>
-<li>Fixed profile not showing if there is no pinned post</li>
-<li>Fixed "post not found" page showing error</li>
-<li>Fixed problematic posts</li>
-</ul>
+## About The Chatterbox
 
-<details>
-<summary><h2>v1.3 (current major version)</h2></summary>
-<h3>v1.3</h3>
+The Chatterbox is a social platform where you can talk and connect with other users.
 
-<b>Changes</b>
-<ul>
-<li>@-ing someone will link to them and will notify them</li>
-<li>Pinned posts to profile</li>
-<li>Pinned comments to posts</li>
-<li>Comic sans font toggle</li>
-</ul>
-<b>Hotfix A</b>
-<ul>
-<li>Fixed "user not found" page showing error</li>
-<li>Fixed post not showing if no pinned comment</li>
-</ul>
-<b>Hotfix B</b>
-<ul>
-<li>Fixed profile not showing if there is no pinned post</li>
-<li>Fixed "post not found" page showing error</li>
-<li>Fixed problematic posts</li>
-</ul>
+The Chatterbox is a great way to connect with people. You can say about anything, and you can meet about anyone! In The Chatterbox, we aim to connect us humans, because as technology progresses, so does alone time. We make it easy here at The Chatterbox for everyone to talk! 
 
-</details>
+We started when Shedeur, our founder, just learned how to do back-end code. He didn't know what to make, so he just made a Twitter lite.
+
+The Chatterbox Social Media Organization was founded June 13, 2022. The first release was on July 4, 2022. The Chatterbox is owned and managed by Chibs Incorporated with Shedeur Bhatkal as the CEO of The Chatterbox. Currently, there is 1 developer for The Chatterbox and 4 admins on The Chatterbox.
+
+## Change log
+
+### v1.3.0
+**Changes**
+- @-ing someone will link to them and will notify them
+- Pinned posts to profile
+- Pinned comments to posts
+- Comic sans font toggle
+
+**Hotfix A**
+- Fixed "user not found" page showing error
+- Fixed post not showing if no pinned comment
+
+**Hotfix B**
+- Fixed profile not showing if there is no pinned post
+- Fixed "post not found" page showing error
+- Fixed problematic posts
 
 <details>
-
-<summary><h2>v1.2</h2></summary>
+  <summary><h2>1.3 (current major version)</h2></summary>
   
-<h3>v1.2.1</h3>
-<b>Changes</b>
-<ul>
-<li>Made a "read" system for notifications</li>
-</ul>
-<hr>
-<h3>v1.2.0</h3>
-<b>Major changes</b>
-<ul>
-<li>Added comment likes</li>
-<li>Added comment replies</li>
-<li>Added saves</li>
-</ul>
-<b>Minor changes</b>
-<ul>
-<li>Made comment notifications highlight the comment</li>
-<li>Slightly changed nav layout</li>
-</ul>
-<b>Bug fixes</b>
-<ul>
-<li>Fixed the notifications not changing username bug</li>
-</ul>
+  ### v1.3.0
+  **Changes**
+  - @-ing someone will link to them and will notify them
+  - Pinned posts to profile
+  - Pinned comments to posts
+  - Comic sans font toggle
+  
+  **Hotfix A**
+  - Fixed "user not found" page showing error
+  - Fixed post not showing if no pinned comment
+  
+  **Hotfix B**
+  - Fixed profile not showing if there is no pinned post
+  - Fixed "post not found" page showing error
+  - Fixed problematic posts
 
 </details>
 
 <details>
-<summary><h2>v1.1</h2></summary>
 
-<h3>v1.1.02</h3>
-<ul>
-<li>Minor bug fixes</li>
-</ul>
-
-<hr>
-
-<h3>v1.1.01</h3>
-<ul>
-<li>Added a "delete all notifications" button</li>
-<li>Minor bug fixes</li>
-</ul>
-
-<hr>
-
-<h3>v1.1.0</h3>
-<b>Changes:</b>
-<ul>
-<li>Verification marks on posts and comments</li>
-<li>The ability to change username</li>
-<li>Notifications</li>
-<li>The ability to see followers and following</li>
-<li>Likes on posts</li>
-<li>Profile links</li>
-<li>Terms of Service changes</li>
-</ul>
-<b>Bug fixes:</b>
-<ul>
-<li>Line breaks now show on posts and bios</li>
-<li>Profile pictures are no longer squished</li>
-</ul>
+  <summary><h2>v1.2</h2></summary>
+    
+  ### 1.2.1
+  **Changes**
+  - Made a "read" system for notifications
+  
+  <hr>
+  
+  ### 1.2.0
+  **Major changes**
+  - Added comment likes
+  - Added comment replies
+  - Added saves
+  
+  **Minor changes**
+  - Made comment notifications highlight the comment
+  - Slightly changed nav layout
+  
+  **Bug fixes**
+  - Fixed the notifications not changing username bug
 
 </details>
 
 <details>
-<summary><h2>v1.0</h2></summary>
+  <summary><h2>v1.1</h2></summary>
+  
+  ### 1.1.02
+  - Minor bug fixes
+  
+  <hr>
+  
+  ### 1.1.01
+  - Added a "delete all notifications" button
+  - Minor bug fixes
+  
+  <hr>
+  
+  ### 1.1.0
+  **Changes:**
+  - Verification marks on posts and comments
+  - The ability to change username
+  - Notifications
+  - The ability to see followers and following
+  - Likes on posts
+  - Profile links
+  - Terms of Service changes
+  
+  **Bug fixes:**
+  - Line breaks now show on posts and bios
+  - Profile pictures are no longer squished
 
-<h3>v1.0.3</h3>
-<ul>
-<li>Added a view following page</li>
-<li>Made the login page redirect you to the original page you visited</li>
-</ul>
+</details>
 
-<hr>
-
-<h3>v1.0.2</h3>
-<ul>
-<li>Fixed profile picture not changing bug</li>
-<li>Changed header image icon</li>
-</ul>
-
-<hr>
-
-<h3>v1.0.1</h3>
-<ul>
-<li>Major bug fixes</li>
-<ul>
-<li>Fixed profile picture not changing bug</li>
-<li>Fixed problamatic usernames bug</li>
-<li>Fixed non-unicode username bug</li>
-</ul>
-</ul>
-
-<hr>
-
-<h3>v1.0.0</h3>
-<ul>
-<li>First release of The Chatterbox</li>
-</ul>
+<details>
+  <summary><h2>v1.0</h2></summary>
+  
+  ### 1.0.3
+  - Added a view following page
+  - Made the login page redirect you to the original page you visited
+  
+  <hr>
+  
+  ### 1.0.2
+  - Fixed profile picture not changing bug
+  - Changed header image icon
+  
+  <hr>
+  
+  ### 1.0.1
+  - Major bug fixes
+  - Fixed profile picture not changing bug
+  - Fixed problamatic usernames bug
+  - Fixed non-unicode username bug
+  
+  <hr>
+  
+  ### 1.0.0
+  - First release of The Chatterbox
 </details>
