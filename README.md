@@ -1,6 +1,6 @@
 <h1 align='center'>The Chatterbox Source code</h1>
 
-![tcblogo-nobg](https://github.com/ShedeurCoder/thechatterbox/assets/81215635/c1c31728-81f0-495d-bcd2-82b537cdcc64)
+<img src='/public/images/tcblogo.png' alt='TCB Logo'>
 
 ## About The Chatterbox
 
