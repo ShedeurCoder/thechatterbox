@@ -117,7 +117,7 @@ The Chatterbox Social Media Organization was founded June 13, 2022. The first re
   
   ### 1.0.2
   - Fixed profile picture not changing bug
-  - Changed header image icon
+  - Changed favicon
   
   <hr>
   
