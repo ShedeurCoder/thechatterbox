@@ -8,7 +8,7 @@ if (localStorage.comicsans) {
         document.body.style.fontFamily = '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji'
     }
 }
-if (sessionStorage.message == 'off') {
+if (sessionStorage.message == 'off' && getId('homeMessage')) {
     getId('homeMessage').style.display = 'none'
 }
 function toggleComicSans() {
