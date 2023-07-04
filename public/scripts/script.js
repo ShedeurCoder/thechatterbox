@@ -9,7 +9,7 @@ if (localStorage.comicsans) {
     }
 }
 if (sessionStorage.message == 'off') {
-    getId('message').style.display = 'none'
+    getId('homeMessage').style.display = 'none'
 }
 function toggleComicSans() {
     const comicSans = localStorage.comicsans
