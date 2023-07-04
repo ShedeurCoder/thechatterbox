@@ -66,8 +66,8 @@ mixin comment(post, postOwner, highlight={}, open={}, pinned={})
             input(type="hidden", name="link" value=`/user/${postOwner.user}/post/${postOwner._id}?c=${post._id}&r=open`)
             input(type="hidden", name="type" value=`replyComment`)
         .replyInput 
-            label.sr-only(for="message") Reply 
-            input#message.bg-dark.text-light.replyMessage.p-2(autocomplete="off" type="text", name="message" placeholder='Reply to comment' maxlength='200' required)
+            label.sr-only(for="reply") Reply 
+            input#reply.bg-dark.text-light.replyMessage.p-2(autocomplete="off" type="text", name="message" placeholder='Reply to comment' maxlength='200' required)
         button.reply-button.p-1(type="submit") Reply 
         button.cancel-reply.p-1(type='button' onclick=`showHideReplyForm("form${post._id}")`) Cancel
     //- show replies
