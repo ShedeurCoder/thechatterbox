@@ -18,6 +18,8 @@ block content
                 small Admin
             else if profileOwner._id.equals('6443844463ca4aa6cec8961c') || profileOwner._id.equals('62c41abb0b915f43343b1e7a')
                 small Tester
+            if profileOwner._id.equals('62c356232638d8edfc51555f')
+                small(style='font-family: "Comic Sans MS"; color: rgb(133, 44, 1); background: rgb(117, 194, 235); padding: 10px; border-radius: 5px') comic sans rules
             p.wrap#profileDescription=profileOwner.description
             if profileOwner.link
                 a.profile-link(href=`${profileOwner.link}` target='_blank')
