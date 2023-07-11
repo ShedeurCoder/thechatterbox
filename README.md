@@ -14,24 +14,15 @@ The Chatterbox Social Media Organization was founded June 13, 2022. The first re
 
 ## Change log
 
-### v1.3.0
+### v1.3.01
 **Changes**
-- @-ing someone will link to them and will notify them
-- Pinned posts to profile
-- Pinned comments to posts
-- Comic sans font toggle
-
-**Hotfix A**
-- Fixed "user not found" page showing error
-- Fixed post not showing if no pinned comment
-
-**Hotfix B**
-- Fixed profile not showing if there is no pinned post
-- Fixed "post not found" page showing error
-- Fixed problematic posts
+- Bug fixes
 
 <details>
   <summary><h2>1.3 (current major version)</h2></summary>
+  ### v1.3.01
+  **Changes**
+  - Bug fixes
   
   ### v1.3.0
   **Changes**
