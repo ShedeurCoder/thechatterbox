@@ -20,6 +20,7 @@ The Chatterbox Social Media Organization was founded June 13, 2022. The first re
 
 <details>
   <summary><h2>1.3 (current major version)</h2></summary>
+  
   ### v1.3.01
   **Changes**
   - Bug fixes
