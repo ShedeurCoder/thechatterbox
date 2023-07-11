@@ -1,6 +1,6 @@
 {
   "name": "the-chatterbox",
-  "version": "1.3.0",
+  "version": "1.3.01",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
