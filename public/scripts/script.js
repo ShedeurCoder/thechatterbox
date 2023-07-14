@@ -8,9 +8,6 @@ if (localStorage.comicsans) {
         document.body.style.fontFamily = '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji'
     }
 }
-if (sessionStorage.message == 'off' && getId('homeMessage')) {
-    getId('homeMessage').style.display = 'none'
-}
 function toggleComicSans() {
     const comicSans = localStorage.comicsans
     localStorage.clear()
@@ -24,10 +21,6 @@ function toggleComicSans() {
     } else {
         document.body.style.fontFamily = '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji'
     }
-}
-function removeMessage() {
-    getId('message').style.display = 'none'
-    sessionStorage.setItem('message', 'off')
 }
 function showHideReplyForm(id) {
     getId(id).classList.toggle("displayNone");

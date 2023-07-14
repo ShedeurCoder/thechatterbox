@@ -6,7 +6,7 @@ html
         link(rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous")
         link(rel='stylesheet', href='/stylesheets/style.css')
         link(rel="shortcut icon", href="/images/transparentlogo.png", type="image/x-icon")
-    body.bg-dark 
+    body.bg-dark.m-0 
         each f in following 
             .user-result-wrapper
                 a(href=`/user/${f.username}` target="_parent")

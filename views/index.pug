@@ -1,10 +1,6 @@
 extends layout 
 include mixins/_post 
 block content 
-    //- .message.text-center.bg-primary#homeMessage 
-    //-     button.close(onclick='removeMessage()') &times;
-    //-     h1 THE CHATTERBOX'S FIRST BIRTHDAY
-    //-     p Join us and celebrate The Chatterbox's 1st birthday this July 4th! Get a chance to win a custom badge giveaway to any random user, see the new v1.3 update, and see how The Chatterbox was made!! 
     h1.text-center The Chatterbox Home
     form(action="/post", method="post") 
         input(type="hidden", name="user" value=user.username)

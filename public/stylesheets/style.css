@@ -1,6 +1,13 @@
+:root {
+  --darkgray: rgb(48, 48, 48);
+  --white-trans: rgba(255, 255, 255, 0.746);
+  --verified: rgb(0, 187, 255);
+}
+:invalid {
+  outline: rgb(138, 1, 1);
+}
 body {
   margin-bottom: 6em;
-  
 }
 .logo {
   display: none;
@@ -16,7 +23,7 @@ nav {
   height: 5em;
 }
 nav a, nav .more {
-  color: rgba(255, 255, 255, 0.746);
+  color: var(--white-trans);
   flex: 1;
   text-align: center;
   font-size: 1.5rem;
@@ -40,7 +47,7 @@ nav a:hover, nav .more:hover {
   margin-bottom: 2.5em;
 }
 .profile-header {
-  background-color: rgb(48, 48, 48);
+  background-color: var(--darkgray);
   text-align: center;
   padding: 1em;
   margin-bottom: 1.3em;
@@ -57,7 +64,7 @@ nav a:hover, nav .more:hover {
 i.fa-check-circle {
   font-size: 1.3rem;
   padding: 0.3em;
-  color: rgb(0, 187, 255);
+  color: var(--verified);
 }
 .profile-header b {
   font-size: 1.3rem;
@@ -66,7 +73,7 @@ i.fa-check-circle {
   font-size: 1.2rem;
 }
 .post-wrapper {
-  background-color: rgb(48, 48, 48);
+  background-color: var(--darkgray);
   padding: 1em 2em;
   margin: 1em;
   border-radius: 30px;
@@ -85,7 +92,6 @@ i.fa-check-circle {
 }
 .post-wrapper h3 {
   display: inline;
-  /* margin-right: 1em; */
   font-size: 1.5rem;
 }
 .post-wrapper i {
@@ -103,21 +109,21 @@ i.fa-check-circle {
   text-decoration: none;
 }
 .fas.fa-comment-alt {
-  color: rgba(255, 255, 255, 0.746);
+  color: var(--white-trans);
   font-size: 1.5rem;
 }
 .fas.fa-comment-alt:hover {
-  color: rgb(255, 255, 255);
+  color: white;
 }
 .post-date {
   float: right;
-  color:rgba(255, 255, 255, 0.746);
+  color:var(--white-trans);
 }
 button.fa-trash {
   font-size: 1.3rem;
   border: none;
-  background-color: rgb(48, 48, 48);
-  color: rgba(255, 255, 255, 0.746);
+  background-color: var(--darkgray);
+  color: var(--white-trans);
 }
 button.fa-trash:hover {
   color: rgb(255, 46, 46);
@@ -128,7 +134,7 @@ button.fa-trash:hover {
   margin-bottom: 0.7em;
 }
 .main-post {
-  background-color: rgb(48, 48, 48);
+  background-color: var(--darkgray);
   padding: 2em;
 }
 .main-post img {
@@ -177,7 +183,7 @@ button.fa-trash:hover {
   text-align: center;
 }
 .form-vis input {
-  background-color: rgb(48, 48, 48);
+  background-color: var(--darkgray);
   border: none;
   border-radius: 10px;
   font-size: 1.3rem;
@@ -185,13 +191,13 @@ button.fa-trash:hover {
   color: white;
 }
 .user-result-wrapper {
-  background-color: rgb(48, 48, 48);
+  background-color: var(--darkgray);
   padding: 1em;
   margin-block-start: 0.7em;
   text-align: center;
 }
 .user-result-wrapper a {
-  color: rgba(255, 255, 255, 0.746);
+  color: var(--white-trans);
 }
 .user-result-wrapper a:hover {
   text-decoration: none;
@@ -230,13 +236,13 @@ button.fa-trash:hover {
   margin: 0.5em;
 }
 .ticket-wrapper a {
-  color: rgb(255, 255, 255);
+  color: white;
 }
 .ticket-wrapper a:hover {
   text-decoration: none;
 }
 .ticket-body {
-  background-color: rgb(48, 48, 48);
+  background-color: var(--darkgray);
   padding: 1em;
   border-radius: 15px;
 }
@@ -253,7 +259,7 @@ button.fa-trash:hover {
   margin: 1em;
 }
 .verify-wrapper a {
-  color: rgba(255, 255, 255, 0.746);
+  color: var(--white-trans);
 }
 .verify-wrapper a:hover {
   color: white;
@@ -284,16 +290,16 @@ iframe {
   height: 100%;
 }
 #followingModal .modal-body, #followersModal .modal-body, #likesModal .modal-body, .likesModal .modal-body {
-  height: 500px
+  height: 500px;
 }
 .following-page {
-  background-color: rgb(48, 48, 48)
+  background-color: var(--darkgray)
 }
 .divider {
   font-size: 1.3rem
 }
 .notification, .notification:hover {
-  background-color: rgb(48, 48, 48);
+  background-color: var(--darkgray);
   display: block;
   padding: 5%;
   color: rgba(255, 255, 255, 0.9);
@@ -347,7 +353,7 @@ iframe {
   color: white;
 }
 .fa-heart, .fa-bookmark {
-  color: rgba(255, 255, 255, 0.746);
+  color: var(--white-trans);
   font-size: 1.5rem;
   border: none;
   background-color: #303030;
@@ -359,7 +365,7 @@ iframe {
   color: rgb(237, 55, 55)
 }
 .heart-number {
-  color: rgba(255, 255, 255, 0.746);
+  color: var(--white-trans);
   font-size: 1.5rem;
   cursor: pointer
 }
@@ -376,30 +382,26 @@ iframe {
   background-color: #fa3e3e;
   border-radius: 10px;
   color: white;
- 
-  /* padding: 1px 3px; */
   font-size: 1rem;
-
   display: inline-block;
   width: 20px;
   height: 20px;
-  
-  position: absolute; /* Position the badge within the relatively positioned button */
+  position: absolute;
   top: 0;
   right: 20%;
 }
 .highlight-comment {
-  border: rgb(255, 255, 255) 2px solid;
+  border: white 2px solid;
 }
 .highlight-comment small {
-  background: rgb(255, 255, 255);
+  background: white;
   color:rgba(50, 50, 50);
   font-size: 0.8rem;
   padding: 3px;
   border-radius: 5px;
 }
 .showReplies {
-  color: rgb(0, 187, 255);
+  color: var(--verified);
   font-size: 1.3rem;
   margin-top: -10px;
 }
@@ -427,7 +429,7 @@ iframe {
 }
 .reply-button, .cancel-reply {
   border: none;
-  color: rgba(255, 255, 255, 0.746);
+  color: var(--white-trans);
   font-size: 1.2rem;
   background-color: #343A40;
 }
@@ -441,7 +443,7 @@ iframe {
   outline: none
 }
 .reply-wrapper {
-  background-color: rgb(48, 48, 48);
+  background-color: var(--darkgray);
   padding: 1em 2em;
   margin: 1em;
   border-radius: 30px;
@@ -500,12 +502,12 @@ iframe {
   right: 2%
 }
 .moreOptions a {
-  color: rgb(255, 255, 255, 0.746);
+  color: var(--white-trans);
   text-decoration: none;
   display: block;
 }
 .moreOptions a:hover {
-  color: rgb(255, 255, 255);
+  color: white;
   text-decoration: none;
 }
 .moreOptions small {
@@ -516,7 +518,7 @@ iframe {
   color: rgb(255, 255, 255, 0.746);
 }
 .moreOptions .fa-bookmark:hover {
-  color: rgb(255, 255, 255);
+  color: white;
 }
 .at-link, .reply-message a {
   color: #1586ff;
@@ -527,7 +529,7 @@ iframe {
 .pin-post {
   border: none;
   background: none;
-  color: rgb(255, 255, 255, 0.746);
+  color: var(--white-trans);
   font-size: 1.3rem;
 }
 .pin-post:hover {
@@ -535,11 +537,6 @@ iframe {
 }
 .pinned {
   color: white;
-}
-.message {
-  padding: 1em;
-  margin: 10px;
-  border-radius: 20px;
 }
 @media only screen and (min-width: 800px) and (max-width: 999px) {
   .form-vis input {
@@ -671,33 +668,17 @@ iframe {
     text-align: left;
   }
   .moreOptions a {
-    color: rgb(255, 255, 255, 0.746);
+    color: var(--white-trans);
     text-decoration: none;
     font-size: 1.3rem;
     display: block;
   }
   .moreOptions a:hover {
-    color: rgb(255, 255, 255);
+    color: white;
     text-decoration: none;
   }
 }
 @keyframes fadein {
-  from {opacity: 0;}
-  to {opacity: 1;}
-}
-@-moz-keyframes fadein {
-  from {opacity: 0;}
-  to {opacity: 1;}
-}
-@-webkit-keyframes fadein {
-  from {opacity: 0;}
-  to {opacity: 1;}
-}
-@-ms-keyframes fadein {
-  from {opacity: 0;}
-  to {opacity: 1;}
-}
-@-o-keyframes fadein {
   from {opacity: 0;}
   to {opacity: 1;}
 }
