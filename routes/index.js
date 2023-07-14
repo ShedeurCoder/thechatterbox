@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const controller = require("../controllers/controller");
+const adminController = require('../controllers/adminController');
 
 router.get('*', controller.isLoggedIn, controller.getNotifs);
 router.get('/admin/*', controller.isAdmin);
@@ -82,22 +83,22 @@ router.post('/help/ticket', controller.ticketPost);
 router.get('/help/your-tickets', controller.yourTickets);
 
 /* ADMIN ROUTES */
-router.get('/admin/help/ticket', controller.adminTicket);
-router.get('/admin/help/verification', controller.adminVerificationGet);
-router.post('/admin/help/verification', controller.adminVerificationPost);
-router.get('/admin/delete_account', controller.adminDeleteGet);
-router.post('/admin/delete_account', controller.adminDeletePost);
-router.get('/admin/delete/:username', controller.confirmationDelete);
-router.post('/admin/delete/:username', controller.deleteAdmin);
-router.get('/admin/verify_unverify_user', controller.addRemoveVerificationGet)
-router.post('/admin/verify_unverify_user', controller.addRemoveVerificationPost)
-router.get('/admin/help/ticket/closed', controller.closedTickets)
+router.get('/admin/help/ticket', adminController.adminTicket);
+router.get('/admin/help/verification', adminController.adminVerificationGet);
+router.post('/admin/help/verification', adminController.adminVerificationPost);
+router.get('/admin/delete_account', adminController.adminDeleteGet);
+router.post('/admin/delete_account', adminController.adminDeletePost);
+router.get('/admin/delete/:username', adminController.confirmationDelete);
+router.post('/admin/delete/:username', adminController.deleteAdmin);
+router.get('/admin/verify_unverify_user', adminController.addRemoveVerificationGet)
+router.post('/admin/verify_unverify_user', adminController.addRemoveVerificationPost)
+router.get('/admin/help/ticket/closed', adminController.closedTickets)
 
 /* OWNER ROUTES */
-router.get('/owner/add_remove_admin', controller.addRemoveAdminGet)
-router.post('/owner/add_remove_admin', controller.addRemoveAdminPost)
+router.get('/owner/add_remove_admin', adminController.addRemoveAdminGet)
+router.post('/owner/add_remove_admin', adminController.addRemoveAdminPost)
 
-/* FOR THE DIFFERENT PAGES */
+/* FOR THE NUMBER PAGES */
 router.get('/user/:username/:pageNumber', controller.profilePageNumber);
 router.get('/profile/:pageNumber', controller.profileNumber);
 
