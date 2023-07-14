@@ -1,10 +1,13 @@
 :root {
-  --darkgray: rgb(48, 48, 48);
+  --darkgray: #303030;
   --white-trans: rgba(255, 255, 255, 0.746);
-  --verified: rgb(0, 187, 255);
+  --verified: #00bbff;
 }
-:invalid {
-  outline: rgb(138, 1, 1);
+input:invalid {
+  outline: #dc3545 3px solid;
+}
+input:valid {
+  outline: #28a745 1px solid;
 }
 body {
   margin-bottom: 6em;

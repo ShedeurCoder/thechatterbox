@@ -3,10 +3,10 @@ mixin userForm(user={})
         if !url.startsWith('/profile/edit')
             .form-group     
                 label(for="first_name") First Name 
-                input.form-control#first_name(type="text", name="first_name" value=user.first_name required placeholder="e.g. John")
+                input.form-control#first_name(type="text", name="first_name" value=user.first_name required placeholder="e.g. John" minlength='2')
             .form-group     
                 label(for="surname") Surname 
-                input.form-control#surname(type="text", name="surname" value=user.surname required placeholder="e.g. Smith")
+                input.form-control#surname(type="text", name="surname" value=user.surname required placeholder="e.g. Smith" minlength='2')
 
         .form-group 
             label(for="displayName") Display name (optional)
@@ -24,7 +24,7 @@ mixin userForm(user={})
                 input.form-control#confirm_email(type="email", name="confirm_email" required placeholder="e.g. johnsmith@gmail.com")
             .form-group     
                 label(for="username") Username (Only a-z (lowercase), 0-9, and underscores are allowed) 
-                input.form-control#username(type="text", name="username" value=user.username required placeholder="e.g. john_smith_in_da_house" maxlength="20" pattern='[a-z0-9_]{1,}')
+                input.form-control#username(type="text", name="username" value=user.username required placeholder="e.g. john_smith_in_da_house" maxlength="20" pattern='[a-z0-9_]{2,}')
             .form-group     
                 label(for="password") Password
                 input.form-control#password(type="password", name="password" minlength="8" placeholder="e.g. j*873hTNdjwG+3dj#" required)
