@@ -3,11 +3,14 @@
   --white-trans: rgba(255, 255, 255, 0.746);
   --verified: #00bbff;
 }
-input:invalid {
+input[required]:invalid {
   outline: #dc3545 3px solid;
 }
-input:valid {
+input[required]:valid {
   outline: #28a745 1px solid;
+}
+input[type='checkbox'] {
+  outline: none;
 }
 body {
   margin-bottom: 6em;
