@@ -12,7 +12,7 @@ const postSchema = new mongoose.Schema({
         type: String,
         required: true,
         trim: true,
-        max: 300
+        max: 1000
     },
     comments: {
         type: Number,

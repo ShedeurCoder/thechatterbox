@@ -7,7 +7,7 @@ block content
         input(type="hidden", name="userPFP" value=user.profile_picture)
         input(type="hidden", name="verified" value=`${user.isVerified}`)
         .input-group
-            input.form-control.bg-dark.text-light.mr-2(required autocomplete="off" style="font-size: 1.3rem; border: none; border-bottom: 3px black solid;" type="text", name="message" placeholder="Talk about something" maxlength='300')
+            input.form-control.bg-dark.text-light.mr-2(required autocomplete="off" style="font-size: 1.3rem; border: none; border-bottom: 3px black solid;" type="text", name="message" placeholder="Talk about something" maxlength='1000')
             button.btn.btn-primary(type="submit") Post
     .profile-posts
         each post in posts 

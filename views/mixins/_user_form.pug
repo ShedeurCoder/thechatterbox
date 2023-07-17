@@ -10,7 +10,7 @@ mixin userForm(user={})
 
         .form-group 
             label(for="displayName") Display name (optional)
-            input.form-control#displayName(type="text" name='displayName' value=user.displayName placeholder="e.g. John Smith (he/him)")
+            input.form-control#displayName(type="text" name='displayName' value=user.displayName placeholder="e.g. John Smith (he/him)" maxlength='100')
         .form-group     
             label(for="profile_picture") Profile Picture (optional)
             input.form-control-file#profile_picture(type="file", name="profile_picture" accept="image/*")
@@ -24,7 +24,7 @@ mixin userForm(user={})
                 input.form-control#confirm_email.required(type="email", name="confirm_email" required placeholder="e.g. johnsmith@gmail.com")
             .form-group     
                 label(for="username") Username (Only a-z (lowercase), 0-9, and underscores are allowed) 
-                input.form-control#username.required(type="text", name="username" value=user.username required placeholder="e.g. john_smith_in_da_house" maxlength="20" pattern='[a-z0-9_]{2,}')
+                input.form-control#username.required(type="text", name="username" value=user.username required placeholder="e.g. john_smith_in_da_house" maxlength="25" pattern='[a-z0-9_]{2,}')
             .form-group     
                 label(for="password") Password
                 input.form-control#password.required(type="password", name="password" minlength="8" placeholder="e.g. j*873hTNdjwG+3dj#" required)
@@ -34,7 +34,7 @@ mixin userForm(user={})
 
         .form-group     
             label(for="description") Bio (optional)
-            textarea.form-control#description(name="description", cols="30", rows="3", maxlength="150" placeholder="Hi, my name is John Smith, and I like to live life. Make sure to follow me so you can see my adventures!")=user.description
+            textarea.form-control#description(name="description", cols="30", rows="3", maxlength="300" placeholder="Hi, my name is John Smith, and I like to live life. Make sure to follow me so you can see my adventures!")=user.description
         .form-group     
             label(for="link") Link (include "https://" or "http://") (optional)
             input.form-control#link(type="url", name="link"  value=user.link placeholder="e.g. https://johnsmith.com")

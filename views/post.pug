@@ -30,7 +30,7 @@ block content
                         button.fas.fa-heart.liked(type="submit")
                     b.heart-number(data-toggle="modal" data-target="#likesModal")=` ${post.likes.length}`
                 span.fas.fa-comment-alt.mr-4=` ${post.comments}`
-                - var onclick = (user.saves.length >= 50 ? 'alert("You have too many saves."); return false' : '')
+                - var onclick = (user.saves.length >= 100 ? 'alert("You have too many saves."); return false' : '')
                 form.save-form(action=`/save/${post._id}` method='POST' onclick=onclick)
                     if !user.saves.includes(post._id)
                         button.fas.fa-bookmark.saveable(type='submit')
@@ -61,7 +61,7 @@ block content
                 input(type="hidden", name="link" value=`/user/${post.user}/post/${post._id}`)
                 input(type="hidden", name="type" value=`comment`)
             .form-vis
-                input(type="text", name="message" placeholder="Make a comment" autocomplete="off" required)
+                input(type="text", name="message" maxlength='500' placeholder="Make a comment" autocomplete="off" required)
                 button.btn.btn-primary(type="submit") Comment 
         .comments
             if pinnedComment

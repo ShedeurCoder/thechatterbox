@@ -7,8 +7,8 @@ const TicketReply = require('../models/ticket_replies');
 const cloudinary = require('cloudinary');
 const multer = require('multer');
 const Passport = require('passport');
-const postPageLimit = 20;
-const homePageLimit = 25;
+const postPageLimit = 50;
+const homePageLimit = 40;
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_NAME,

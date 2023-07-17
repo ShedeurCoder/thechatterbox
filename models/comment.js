@@ -13,7 +13,7 @@ const replySchema = new mongoose.Schema({
         type: String,
         required: true,
         trim: true,
-        max: 200
+        max: 500
     },
     date: {
         type: Number,
@@ -42,7 +42,7 @@ const commentSchema = new mongoose.Schema({
         type: String,
         required: true,
         trim: true,
-        max: 200
+        max: 500
     },
     date: {
         type: Number,

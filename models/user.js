@@ -20,7 +20,8 @@ const userSchema = new mongoose.Schema({
         default: 'defaultProfile_u6mqts'
     },
     displayName: {
-        type: String
+        type: String,
+        max: 100
     },
     email: {
         type: String,
@@ -35,7 +36,7 @@ const userSchema = new mongoose.Schema({
         trim: true,
         unique: true,
         lowercase: true,
-        max: 20
+        max: 25
     },
     password: {
         type: String,
@@ -51,7 +52,7 @@ const userSchema = new mongoose.Schema({
     },
     description: {
         type: String,
-        max: 150
+        max: 300
     },
     link: {
         type: String
