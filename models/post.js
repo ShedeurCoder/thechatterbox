@@ -1,4 +1,24 @@
 const mongoose = require('mongoose');
+const rtSchema = new mongoose.Schema({
+    user: {
+        type: String,
+        required: true
+    },
+    userPFP: {
+        type: String,
+        required: true
+    },
+    message: {
+        type: String,
+        required: true,
+        trim: true,
+        max: 1000
+    },
+    post_id: {
+        type: String,
+        required: true
+    }
+})
 const postSchema = new mongoose.Schema({
     user: {
         type: String,
@@ -31,6 +51,9 @@ const postSchema = new mongoose.Schema({
     verified: {
         type: Boolean,
         required: true
+    },
+    rt: {
+        type: rtSchema
     }
 })
 postSchema.index({

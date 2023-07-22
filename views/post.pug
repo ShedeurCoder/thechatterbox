@@ -16,8 +16,18 @@ block content
             span.post-date=styleDate
             br
             p.wrap.main-post-message(id=`e${post._id}` onload=`replaceLink('e${post._id}')`)=post.message
+            if post.rt 
+                .post-wrapper-wrapper
+                    a(href=`/user/${post.rt.user}/post/${post.rt.post_id}`)
+                        .post-wrapper.rt-wrapper.post-page
+                            img.post-pfp(src=`https://res.cloudinary.com/dmftho0cx/image/upload/${post.rt.userPFP}`)
+                            span &nbsp;
+                            h3=`@${post.rt.user}`
+                            br
+                            p.wrap=post.rt.message
             .float-right
-                form.like-form.mr-4(action=`/user/${post.user}/post/${post._id}/like`, method="post") 
+                //- LIKE FORM
+                form.like-form.mr-4(action=`/${post._id}/like`, method="post") 
                     if post.user != user.username
                         input(type='hidden' name='notif' value=1)
                         input(type="hidden", name="to" value=`${post.user}`)
@@ -29,13 +39,38 @@ block content
                     else if post.likes.includes(user.username)
                         button.fas.fa-heart.liked(type="submit")
                     b.heart-number(data-toggle="modal" data-target="#likesModal")=` ${post.likes.length}`
-                span.fas.fa-comment-alt.mr-4=` ${post.comments}`
+
+                span.fas.fa-comment-alt.mr-3=` ${post.comments}`
+
+                form.rt-form.mr-3(action="/rt" method='POST') 
+                    if post.user != user.username
+                        input(type='hidden' name='notif' value=1)
+                        input(type="hidden", name="to" value=`${post.user}`)
+                        input(type="hidden", name="from" value=`${user.username}`)
+                        input(type="hidden", name="link" value=`/user/${user.username}/post/`)
+                        input(type="hidden", name="type" value=`rt`)
+                    input(type="hidden", name="user" value=post.user)
+                    input(type="hidden", name="userPFP" value=post.userPFP)
+                    input(type="hidden", name="message" value=post.message)
+                    input(type="hidden", name="post_id" value=post._id)
+                    input(type="hidden", name="verified" value=`${user.isVerified}`)
+                    button.fas.fa-retweet(type='button' onclick='showRtModal()')
+                    dialog.bg-dark.text-light.p-5#rtModal
+                        button.close.text-light(type='button' onclick='closeRtModal()') &times;
+                        .form-group 
+                            label(for="message") Quote this post: 
+                            textarea.form-control.bg-dark.text-light(name="rt_message", cols="10" rows="4" required placeholder="What's going on?" maxlength="1000")
+                        button(type="submit") Submit
+
+                //- SAVES FORM
                 - var onclick = (user.saves.length >= 100 ? 'alert("You have too many saves."); return false' : '')
-                form.save-form(action=`/save/${post._id}` method='POST' onclick=onclick)
+                form.save-form(action=`/save/${post._id}` method='POST')
                     if !user.saves.includes(post._id)
                         button.fas.fa-bookmark.saveable(type='submit')
                     else if user.saves.includes(post._id)
                         button.fas.fa-bookmark.saved(type='submit')
+
+                //- PIN FORM
                 if user.username == post.user 
                     form(action=`/pin`, method="post" style='display: inline' onsubmit="return confirm ('Pin this post? It will replace your previous pinned post.')").ml-3
                         input(type="hidden", name="postId", value=post._id)
@@ -43,12 +78,12 @@ block content
                             span.fas.fa-thumbtack(class=user.pinned == post._id ? 'pinned' : '') 
             br
             if user.username == post.user || user.isAdmin
-                form(action=`/user/${post.user}/post/${post._id}/delete`, method="post" onsubmit="return confirm('Do you really want to delete this box? This action is irreversible!');") 
+                form(action=`/post/${post._id}/delete`, method="post" onsubmit="return confirm('Do you really want to delete this box? This action is irreversible!');") 
                     input(type="hidden", name="postOwner" value=post.user)
                     input(type="hidden", name="currentUser" value=user.username)
                     input(type="hidden" name='home' value=1)
                     button.fas.fa-trash(type="submit")
-        form.comment-form(action=`/user/${post.user}/post/${post._id}/comment`, method="post") 
+        form.comment-form(action=`/post/${post._id}/comment`, method="post") 
             input(type="hidden" value=user.username name="user")
             input(type="hidden" value=user.profile_picture name="userPFP")
             input(type="hidden" value=post._id name="mainBox")

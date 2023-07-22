@@ -34,7 +34,7 @@ mixin comment(post, postOwner, highlight={}, open={}, pinned={})
             span.float-right.fas.fa-comment-alt.mt-2#repliesButton(onclick=`alert("This comment has max amount of replies")`)=` ${post.replies.length}`
         //- like button
         .float-right
-            form.like-form.mr-4(action=`/user/${postOwner.user}/post/${postOwner._id}/${post._id}/like`, method="post") 
+            form.like-form.mr-4(action=`/${postOwner._id}/${post._id}/like`, method="post") 
                 if post.user != user.username
                     input(type='hidden' name='notif' value=1)
                     input(type="hidden", name="to" value=`${post.user}`)
@@ -48,14 +48,16 @@ mixin comment(post, postOwner, highlight={}, open={}, pinned={})
                 b.heart-number(data-toggle="modal" data-target=`#e${post._id}Likes`)=` ${post.likes.length}`
         //- delete
         if user.username == post.user || user.isAdmin
-            form(action=`/user/${postOwner.user}/post/${postOwner._id}/comment/delete`, method="post" onsubmit="return confirm('Do you really want to delete this box? This action is irreversible!');") 
+            form(action=`/${postOwner._id}/comment/delete`, method="post" onsubmit="return confirm('Do you really want to delete this box? This action is irreversible!');") 
                 input(type="hidden", name="postOwner" value=post.user)
                 input(type="hidden", name="currentUser" value=user.username)
                 input(type="hidden" name="postId" value=post._id)
                 button.fas.fa-trash(type="submit")
     //- reply form
-    form.replyToComment.text-center.mb-3.displayNone(action=`/user/${postOwner.user}/post/${postOwner._id}/comment/${post._id}/reply`, method="post" id=`form${post._id}`) 
+    form.replyToComment.text-center.mb-3.displayNone(action=`/comment/${post._id}/reply`, method="post" id=`form${post._id}`) 
         input(type="hidden" value=user.username name="user")
+        input(type="hidden" value=postOwner.user name="postOwnerUser")
+        input(type="hidden" value=postOwner._id name="postOwnerId")
         input(type="hidden" value=user.profile_picture name="userPFP")
         input(type="hidden", name="verified" value=`${user.isVerified}`)
         //- for notif
@@ -93,7 +95,7 @@ mixin comment(post, postOwner, highlight={}, open={}, pinned={})
                         br
                         p.wrap.reply-message(id=`a${reply._id}`)=reply.message
                         if user.username == reply.user || user.isAdmin
-                            form(action=`/user/${postOwner.user}/post/${postOwner._id}/reply/delete`, method="post" onsubmit="return confirm('Do you really want to delete this box? This action is irreversible!');") 
+                            form(action=`/reply/delete`, method="post" onsubmit="return confirm('Do you really want to delete this box? This action is irreversible!');") 
                                 input(type="hidden", name="comment" value=post._id)
                                 input(type="hidden" name="replyId" value=reply._id)
                                 button.fas.fa-trash(type="submit")

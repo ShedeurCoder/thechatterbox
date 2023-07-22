@@ -1,24 +1,24 @@
 require('dotenv').config();
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
 const bodyParser = require("body-parser");
-var logger = require('morgan');
-var mongoose = require('mongoose');
+const logger = require('morgan');
+const mongoose = require('mongoose');
 const compression = require('compression');
 
-var indexRouter = require('./routes/index');
+const indexRouter = require('./routes/index');
 
 // sessions
-var session = require('express-session');
-var MongoStore = require('connect-mongo');
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
 
 // passport js
 const User = require('./models/user');
 const passport = require('passport');
 
-var app = express();
+const app = express();
 // compress responses
 app.use(compression());
 

@@ -19,7 +19,7 @@ block content
             else if profileOwner._id.equals('6443844463ca4aa6cec8961c') || profileOwner._id.equals('62c41abb0b915f43343b1e7a')
                 small Tester
             if profileOwner._id.equals('62c356232638d8edfc51555f')
-                small(style='font-family: "Comic Sans MS"; color: rgb(133, 44, 1); margin-block: 5px;background: rgb(117, 194, 235); padding: 5px; border-radius: 5px') comic sans rules
+                small(style='font-family: "Comic Sans MS"; color: rgb(133, 44, 1); margin-block: 5px;background: rgb(117, 194, 235); padding: 5px; border-radius: 5px') yes, donkah is an admin
             p.wrap#profileDescription=profileOwner.description
             if profileOwner.link
                 a.profile-link(href=`${profileOwner.link}` target='_blank')
@@ -43,7 +43,8 @@ block content
             else if !user.following.includes(profileOwner.username)
                 br
                 br
-                form(action="", method="POST")
+                form(action="/follow", method="POST")
+                    input(type="hidden", name="user" value=`${profileOwner.username}`)
                     input(type="hidden", name="to" value=`${profileOwner.username}`)
                     input(type="hidden", name="from" value=`${user.username}`)
                     input(type="hidden", name="link" value=`/user/${profileOwner.username}`)
@@ -52,8 +53,13 @@ block content
             else 
                 br
                 br
-                form(action="", method="POST")
+                form(action="/follow", method="POST")
+                    input(type="hidden", name="user" value=`${profileOwner.username}`)
                     button.btn.btn-light(type="submit") Unfollow
+            .tabs 
+                a(href=`/user/${profileOwner.username}/` class= !url.includes('replies') && !url.includes('likes') ? 'active' : '') Posts
+                a(href=`/user/${profileOwner.username}/replies` class= url.includes('replies') ? 'active' : '') Comments
+                a(href=`/user/${profileOwner.username}/likes` class= url.includes('likes') ? 'active' : '') Likes
         .profile-posts
             if pinnedPost 
                 .post-wrapper-wrapper
@@ -63,21 +69,15 @@ block content
                     +post(post)
         -var pageB = parseInt(page) - 1;
         -var pageA = parseInt(page) + 1;
+        -const currentDirectory = url.split('/')[3]
+        -const profileUsername = profileOwner.username
         .text-center
-            if url.startsWith('/user')
-                if page != 1 && page != 2
-                    a.nextLastPage.btn.btn-primary(href=`/user/${profileOwner.username}/${pageB}`) Last page
-                if page == 2
-                    a.nextLastPage.btn.btn-primary(href=`/user/${profileOwner.username}`) Last page 
-                if nextPage 
-                    a.nextLastPage.btn.btn-primary(href=`/user/${profileOwner.username}/${pageA}`) Next page 
-            if url.startsWith('/profile')
-                if page != 1 && page != 2
-                    a.nextLastPage.btn.btn-primary(href=`/profile/${pageB}`) Last page 
-                if page == 2
-                    a.nextLastPage.btn.btn-primary(href="/profile") Last page 
-                if nextPage 
-                    a.nextLastPage.btn.btn-primary(href=`/profile/${pageA}`) Next page
+            if page != 1 && page != 2
+                a.nextLastPage.btn.btn-primary(href=`/user/${profileUsername}/${currentDirectory}/${pageB}`) Last page
+            if page == 2
+                a.nextLastPage.btn.btn-primary(href=`/user/${profileUsername}/${currentDirectory}`) Last page 
+            if nextPage 
+                a.nextLastPage.btn.btn-primary(href=`/user/${profileUsername}/${currentDirectory}/${pageA}`) Next page 
         .modal.fade#followingModal
             .modal-dialog
                 .modal-content.bg-dark.text-light

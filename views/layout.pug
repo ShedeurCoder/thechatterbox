@@ -12,13 +12,12 @@ html
     link(rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous")
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel="icon", href="/images/logo.png", type="image/x-icon")
-    link(rel="icon" href="/images/favicon-light.png" type="image/x-icon" media="(prefers-color-scheme: light)")
-    link(rel="icon" href="/images/favicon-dark.png" type="image/x-icon" media="(prefers-color-scheme: dark)")
   body.bg-dark.text-light
     header 
+      a.skip-nav(href="#main-content") Skip nav
       nav
-        a(href="/").logo.mb-2 
-          img.logoImg(src="/images/logo.png", alt="The Chatterbox")
+        a(href="/").logo.mb-3 
+          img.logoImg#logoImg(src="/images/logo.png", alt="The Chatterbox")
         a(href="/") 
           i(class="fas fa-home") &nbsp;
           span.navName Home 
@@ -34,49 +33,33 @@ html
             if notifs.length > 0
               .button-badge=notifs.length
           span.navName Notifs
-        a(href="/profile")
+        a(href=user ? `/user/${user.username}` : '/user/undefined')
           i(class="fas fa-user") &nbsp;
           span.navName Profile 
         button.more(href="#" onclick='showMore()') 
           i.fas.fa-ellipsis-h &nbsp;
           span.navName More
         if user 
-          a(href="/profile") 
+          a(href="/profile" class='mt-2') 
             img.help-pfp.text-center(src=`https://res.cloudinary.com/dmftho0cx/image/upload/${user.profile_picture}`)
-          .moreOptions#moreOptions.displayNone.px-4.py-2.with-user 
-            a.my-2(href="/settings") 
-              i.fas.fa-cog.mr-2
-              small Settings
-            a.my-2(href="/help")
-              i.fas.fa-question-circle.mr-2
-              small Support
-            a.my-2(href="/saves")
-              i.fas.fa-bookmark.mr-2
-              small Saves
-            a.my-2(href="/about")
-              i.fas.fa-info-circle.mr-2
-              small About 
-            a.my-2(href="/logout")
-              i.fas.fa-arrow-alt-circle-left.mr-2
-              small Logout
-        else 
-          .moreOptions#moreOptions.displayNone.px-4.py-2.without-user 
-            a.my-2(href="/settings") 
-              i.fas.fa-cog.mr-2
-              small Settings
-            a.my-2(href="/help")
-              i.fas.fa-question-circle.mr-2
-              small Support
-            a.my-2(href="/saves")
-              i.fas.fa-bookmark.mr-2
-              small Saves
-            a.my-2(href="/about")
-              i.fas.fa-info-circle.mr-2
-              small About 
-            a.my-2(href="/logout")
-              i.fas.fa-arrow-alt-circle-left.mr-2
-              small Logout
-    block content
+        .moreOptions#moreOptions.displayNone.px-4.py-2.with-user 
+          a.my-2(href="/settings") 
+            i.fas.fa-cog.mr-2
+            small Settings
+          a.my-2(href="/help")
+            i.fas.fa-question-circle.mr-2
+            small Support
+          a.my-2(href="/saves")
+            i.fas.fa-bookmark.mr-2
+            small Saves
+          a.my-2(href="/about")
+            i.fas.fa-info-circle.mr-2
+            small About 
+          a.my-2(href="/logout")
+            i.fas.fa-arrow-alt-circle-left.mr-2
+            small Logout
+    #main-content
+      block content
     unless url.startsWith("/signup") || url.startsWith('/login') || url.startsWith('/about') || url.startsWith('/help') || url.startsWith('/admin') || url.startsWith('/terms-of-service')
       footer  
         button#newTweet.btn.btn-primary.fas.fa-plus-circle(type="button" data-toggle="modal" data-target="#postModal")
@@ -144,6 +127,8 @@ html
                             span mentioned you in a comment!
                         else if notif.type=="replyMention"
                             span mentioned you in a reply!
+                        else if notif.type=='rt'
+                            span retweeted your post
                         br
                     form(action=`/notification`, method="post").mt-2
                         input(type="hidden", name="id" value=notif._id)
@@ -180,6 +165,8 @@ html
                           span mentioned you in a comment!
                       else if notif.type=="replyMention"
                           span mentioned you in a reply!
+                      else if notif.type=='rt'
+                          span retweeted your post
                       br
                     form(action=`/notification`, method="post").mt-2
                       input(type="hidden", name="id" value=notif._id)

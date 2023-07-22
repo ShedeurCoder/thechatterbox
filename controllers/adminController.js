@@ -1,8 +1,8 @@
 const Post = require('../models/post');
 const User = require('../models/user');
 const Comment = require('../models/comment');
-const Ticket = require('../models/ticket');
 const Notif = require('../models/notifications');
+const Ticket = require('../models/ticket');
 const TicketReply = require('../models/ticket_replies');
 
 exports.adminTicket = async (req, res, next) => {
@@ -133,7 +133,7 @@ exports.deleteAdmin = async (req, res, next) => {
                 }, {new: true})
             })
         }
-        Comment.updateMany(
+        await Comment.updateMany(
             {"replies":{$elemMatch:{user: user.username}}},
             {
               $pull: {
@@ -142,6 +142,15 @@ exports.deleteAdmin = async (req, res, next) => {
                     }
                 }
             }
+        )
+        await Post.updateMany(
+            {"rt.user": req.user.username},
+            {"$set": {
+                "rt.userPFP": 'defaultProfile_u6mqts', 
+                "rt.user": 'User deleted',
+                'rt.message': 'Post unavailable'
+            }},
+            {"arrayFilters": [{'elem.user': req.user.username}], 'multi': true}
         )
         // change tickets
         const tickets = await Ticket.find({username: user.username});

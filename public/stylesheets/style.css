@@ -295,7 +295,10 @@ iframe {
   width: 100%;
   height: 100%;
 }
-#followingModal .modal-body, #followersModal .modal-body, #likesModal .modal-body, .likesModal .modal-body {
+#followingModal .modal-body,
+#followersModal .modal-body,
+#likesModal .modal-body,
+.likesModal .modal-body {
   height: 500px;
 }
 .following-page {
@@ -358,11 +361,14 @@ iframe {
 .profile-link i {
   color: white;
 }
-.fa-heart, .fa-bookmark {
+.fa-heart, .fa-bookmark, .fa-retweet {
   color: var(--white-trans);
   font-size: 1.5rem;
   border: none;
   background-color: #303030;
+}
+.fa-retweet:hover {
+  color: rgb(5, 196, 5);
 }
 .likable:hover, .liked {
   color: rgb(218, 60, 60)
@@ -544,6 +550,55 @@ iframe {
 .pinned {
   color: white;
 }
+.tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin: 0 auto;
+  margin-top: 1em;
+  max-width: 750px;
+  align-items: center;
+}
+.tabs a {
+  color: var(--white-trans);
+  font-size: 1.5rem;
+  padding: 0.5em;
+}
+.tabs a:hover {
+  color: white;
+  text-decoration: none;
+}
+.tabs a.active {
+  border-bottom: 3px solid white;
+  color: white;
+}
+.post-wrapper.rt-wrapper {
+  width: 100%;
+  outline: 1px solid black;
+}
+.skip-nav {
+  position: fixed;
+  top: -300px;
+  left: 0;
+  background: black;
+  color: white;
+  font-size: 2rem;
+  z-index: 99;
+  padding: 0.5em;
+}
+.skip-nav:focus {
+  top: 0;
+}
+.rt-form {
+  display: inline-block;
+}
+.rt-wrapper img {
+  height: 50px;
+  width: 50px;
+}
+dialog {
+  border: none;
+  width: 75vw;
+}
 @media only screen and (min-width: 800px) and (max-width: 999px) {
   .form-vis input {
     width: 80%;
@@ -563,12 +618,11 @@ iframe {
   .main-post p {
     font-size: 1.5rem;
   }
-  nav a:hover span, nav .more:hover span {
+  nav a:hover span,
+  nav .more:hover span
+  nav a:focus span,
+  nav .more:focus span {
     display: inline;
-    -webkit-animation: fadein 0.5s; 
-    -moz-animation: fadein 0.5s;
-    -ms-animation: fadein 0.5s; 
-    -o-animation: fadein 0.5s; 
     animation: fadein 0.5s;     
   }
 }
@@ -612,7 +666,7 @@ iframe {
   }
   nav a, nav img, nav .more {
     margin-inline: 0;
-    margin-block: 0.15em;
+    margin-block: 0em;
     flex: none;
   }
   nav img {
@@ -628,7 +682,10 @@ iframe {
     transition: 0.5s;
     font-size: 1.3rem
   }
-  nav a:hover span, nav .more:hover span {
+  nav a:hover span,
+  nav .more:hover span,
+  nav a:focus span,
+  nav .more:focus span {
     visibility: visible;
     transition: 0.5s;
     left: 0;
