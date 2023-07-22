@@ -28,7 +28,7 @@ mixin comment(post, postOwner, highlight={}, open={}, pinned={})
                 input(type="hidden", name="commentId" value=post._id)
                 button(type="submit").pin-post 
                     span.fas.fa-thumbtack(class=postOwner.pinned == post._id ? 'pinned' : '') 
-        if post.replies.length <= 25
+        if post.replies.length <= 50
             span.float-right.fas.fa-comment-alt.mt-2#repliesButton(onclick=`showHideReplyForm("form${post._id}")`)=` ${post.replies.length}`
         else 
             span.float-right.fas.fa-comment-alt.mt-2#repliesButton(onclick=`alert("This comment has max amount of replies")`)=` ${post.replies.length}`
