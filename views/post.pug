@@ -78,12 +78,12 @@ block content
                             span.fas.fa-thumbtack(class=user.pinned == post._id ? 'pinned' : '') 
             br
             if user.username == post.user || user.isAdmin
-                form(action=`/post/${post._id}/delete`, method="post" onsubmit="return confirm('Do you really want to delete this box? This action is irreversible!');") 
+                form(action=`/${post._id}/delete`, method="post" onsubmit="return confirm('Do you really want to delete this box? This action is irreversible!');") 
                     input(type="hidden", name="postOwner" value=post.user)
                     input(type="hidden", name="currentUser" value=user.username)
                     input(type="hidden" name='home' value=1)
                     button.fas.fa-trash(type="submit")
-        form.comment-form(action=`/post/${post._id}/comment`, method="post") 
+        form.comment-form(action=`/${post._id}/comment`, method="post") 
             input(type="hidden" value=user.username name="user")
             input(type="hidden" value=user.profile_picture name="userPFP")
             input(type="hidden" value=post._id name="mainBox")

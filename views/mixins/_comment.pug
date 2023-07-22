@@ -54,7 +54,7 @@ mixin comment(post, postOwner, highlight={}, open={}, pinned={})
                 input(type="hidden" name="postId" value=post._id)
                 button.fas.fa-trash(type="submit")
     //- reply form
-    form.replyToComment.text-center.mb-3.displayNone(action=`/comment/${post._id}/reply`, method="post" id=`form${post._id}`) 
+    form.replyToComment.text-center.mb-3.displayNone(action=`/${post._id}/reply`, method="post" id=`form${post._id}`) 
         input(type="hidden" value=user.username name="user")
         input(type="hidden" value=postOwner.user name="postOwnerUser")
         input(type="hidden" value=postOwner._id name="postOwnerId")
