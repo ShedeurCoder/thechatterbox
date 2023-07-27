@@ -46,7 +46,7 @@ exports.deletePost = async (req, res, next) => {
             await Comment.findByIdAndRemove({_id: item._id});
         })
         await Post.updateMany(
-            {"rt.user": req.user.username},
+            {"rt.post_id": req.params.postId},
             {"$set": {"rt.message": 'post was deleted'}},
             {"arrayFilters": [{'elem.user': req.user.username}], 'multi': true}
         )
