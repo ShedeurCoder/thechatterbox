@@ -366,7 +366,7 @@ exports.postReply = async (req, res, next) => {
                         to: user.username,
                         from: req.user.username,
                         type: 'replyMention',
-                        link: `/user/${req.body.postOwnerUser}/post/${req.params.postOwnerId}?c=${req.params.commentId}&r=open`
+                        link: `/user/${req.body.postOwnerUser}/post/${req.body.postOwnerId}?c=${req.params.commentId}&r=open`
                     })
                     await notif.save()
                 }
