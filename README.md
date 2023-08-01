@@ -1,6 +1,6 @@
 <h1 align='center'>The Chatterbox Source code</h1>
 
-<img src='/public/images/tcblogo.png' alt='TCB Logo'>
+<img src='/public/images/TheChatterbox.png' alt='TCB Logo'>
 
 ## About The Chatterbox
 
