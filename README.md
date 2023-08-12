@@ -14,17 +14,16 @@ The Chatterbox Social Media Organization was founded June 13, 2022. The first re
 
 ## Change log
 
-### v1.4.0
-**Changes**
-- Added comments tab on profiles
-- Added likes tab on profiles
-- Added quote retweets
-- Major file organization
-- Added "Skip Nav" button while tabbing
-- Minor bug fixes
+### v1.4.01
+- Retweet bug fix
 
 <details>
   <summary><h2>1.4 (current major version)</h2></summary>
+
+  ### v1.4.01
+  - Retweet bug fix
+
+  <hr>
 
   ### v1.4.0
   **Changes**

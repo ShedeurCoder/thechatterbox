@@ -16,7 +16,7 @@ block content
             span.post-date=styleDate
             br
             p.wrap.main-post-message(id=`e${post._id}` onload=`replaceLink('e${post._id}')`)=post.message
-            if post.rt 
+            if post.rt && post.rt.message !== undefined 
                 .post-wrapper-wrapper
                     a(href=`/user/${post.rt.user}/post/${post.rt.post_id}`)
                         .post-wrapper.rt-wrapper.post-page

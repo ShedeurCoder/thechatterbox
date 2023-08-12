@@ -18,7 +18,7 @@ mixin post(post, pinned={})
         br
         a(href= (post.mainBox ? `/user/username/post/${post.mainBox}?c=${post._id}` : `/user/${post.user}/post/${post._id}`)) 
             p.wrap=post.message
-        if post.rt 
+        if post.rt && post.rt.message !== undefined
             a(href=`/user/${post.rt.user}/post/${post.rt.post_id}`)
                 .post-wrapper.rt-wrapper
                     img.post-pfp(src=`https://res.cloudinary.com/dmftho0cx/image/upload/${post.rt.userPFP}`)
