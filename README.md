@@ -1,4 +1,4 @@
-<h1 align='center'>The Chatterbox: Express Edition Source code</h1>
+<h1 align='center'>The Chatterbox Express.js Codebase Source code</h1>
 
 <img src='/public/images/TheChatterbox.png' alt='TCB Logo'>
 
