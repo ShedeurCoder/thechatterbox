@@ -10,9 +10,9 @@ The Chatterbox is a great way to connect with people. You can say about anything
 
 We started when Shedeur, our founder, just learned how to do back-end code. He didn't know what to make, so he just made a Twitter lite.
 
-The Chatterbox Social Media was founded June 13, 2022. The first release was on July 4, 2022. The Chatterbox is owned and managed by Chibs Incorporated with Shedeur Bhatkal as the CEO of The Chatterbox. Currently, there is 1 developer for The Chatterbox and 4 admins on The Chatterbox: Express Edition.
+The Chatterbox Social Media was founded June 13, 2022. The first release was on July 4, 2022. The Chatterbox is owned and managed by Chibs Incorporated with Shedeur Bhatkal as the CEO of The Chatterbox.
 
-On October 1, 2023, The Chatterbox: Express Edition is no longer receiving any updates and is now discontinued, being replaced by The Chatterbox Vue. View its source code at https://github.com/ShedeurCoder/TheChatterboxVue
+On May 31, 2024, this version of The Chatterbox is no longer receiving any updates and is now shut down, being replaced by our new version made with Vue. View its source code at https://github.com/ShedeurCoder/TheChatterboxVue
 
 ## Change log
 
